@@ -6487,6 +6487,10 @@ vue@^2.5.16, vue@^2.5.17:
   version "2.5.17"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.17.tgz#0f8789ad718be68ca1872629832ed533589c6ada"
 
+vuex@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.0.1.tgz#e761352ebe0af537d4bb755a9b9dc4be3df7efd2"
+
 vuikit@^0.8.10:
   version "0.8.10"
   resolved "https://registry.yarnpkg.com/vuikit/-/vuikit-0.8.10.tgz#3caeb0d8001d1af32930e31504bd63e8cd8b7ffe"
