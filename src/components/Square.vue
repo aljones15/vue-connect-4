@@ -5,6 +5,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'Square',
   props: { color: { type: String, default: 'white' } }

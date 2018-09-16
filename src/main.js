@@ -3,7 +3,7 @@ import App from './App.vue'
 import Vuikit from 'vuikit'
 import VuikitIcons from '@vuikit/icons'
 import Vuex from 'vuex';
-import makeStore from './State';
+import makeStore from './state';
 
 import '@vuikit/theme'
 
