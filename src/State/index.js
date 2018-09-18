@@ -1,15 +1,14 @@
 import Vuex from 'vuex';
 
-function storeFactory() { 
-    return  new Vuex.Store({
-        state: {
+export const state = {
             players: [],
             round: 0,
             winners: [],
             moves: new Map(),
             thinking: false
-        },
-        mutations: {
+        };
+
+export const mutations = {
             selectPlayer (state, players) {
                 state.players = players;
             },
@@ -32,8 +31,12 @@ function storeFactory() {
                 state.moves = new Map(),
                 state.thinking = false
             }
-       }
-    });
+       };
+
+function storeFactory() { 
+    return  new Vuex.Store({
+        state,
+        mutations});
 }
 
 export default storeFactory;

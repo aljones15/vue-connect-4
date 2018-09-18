@@ -1,0 +1,4 @@
+--colors
+--require ./test/setup.js
+--reporter mochawesome
+**/*.spec.js

@@ -5,25 +5,34 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "test": "vue-cli-service test:unit **/*.spec.js"
   },
   "dependencies": {
     "@vuikit/icons": "^0.8.1",
     "@vuikit/theme": "^0.8.1",
     "vue": "^2.5.17",
+    "vue-i18n": "^8.1.0",
     "vuex": "^3.0.1",
     "vuikit": "^0.8.10"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.3",
     "@vue/cli-plugin-eslint": "^3.0.3",
+    "@vue/cli-plugin-unit-mocha": "^3.0.3",
     "@vue/cli-service": "^3.0.3",
+    "@vue/test-utils": "^1.0.0-beta.25",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "mocha-webpack": "^1.1.0",
+    "mochawesome": "^3.0.3",
     "vue-template-compiler": "^2.5.17"
   },
   "eslintConfig": {
     "root": true,
     "env": {
-      "node": true
+      "node": true,
+      "mocha": true
     },
     "extends": [
       "plugin:vue/essential",
