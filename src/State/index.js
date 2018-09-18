@@ -16,8 +16,8 @@ export const mutations = {
                 const [key, values] = move;
                 state.moves.set(key, values);
             },
-            thinking(state, pondering) {
-                state.thinking = pondering;
+            thinking(state, thinking) {
+                state.thinking = thinking;
             },
             incrementRound(state) {
                 state.round++;
