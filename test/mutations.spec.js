@@ -4,6 +4,7 @@ import Player from '../src/state/Player';
 import playerTypes from '../src/constants/playerTypes';
 
 describe('mutations', function() {
+
     it('should see 2 human players', function() {
         const { human } = playerTypes;
         const players = [new Player(human), new Player(human)];
@@ -12,6 +13,7 @@ describe('mutations', function() {
         expect(state.players, 'expected 2 players').to.have.lengthOf(2);
         expect(state.players, 'expected players to match input').to.deep.eql(players); 
     });
+
     it('should see 1 human players and 1 AI', function() {
         const { human, ai } = playerTypes;
         const players = [new Player(human), new Player(ai)];
@@ -28,6 +30,7 @@ describe('mutations', function() {
         expect(state).to.have.property('thinking');
         expect(state.thinking, 'expected pondering to be true').to.be.true;
     });
+
     it('should not be pondering', function() {
         const state = {};
         const pondering = false;
