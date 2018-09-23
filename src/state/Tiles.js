@@ -1,9 +1,9 @@
 import colors from '../constants/colors';
 
 export default class Tile {
-    constructor(row, col) {
+    constructor(row, col, color = colors.white) {
         this.order = {row, col};
-        this.color = colors.white;
+        this._color = color;
         this.resetScore();
     }
     resetScore() {
@@ -11,5 +11,11 @@ export default class Tile {
             player1: 0,
             player2: 0
         }
+    }
+    get color() {
+        return this._color;
+    }
+    set color(c) {
+        this._color = c;
     }
 }

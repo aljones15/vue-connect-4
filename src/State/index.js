@@ -18,8 +18,9 @@ export const mutations = {
                 state.players = players;
             },
             makeMove(state, move) {
-                const {key: { row, col }, value} = move;
-                if (!row || !col || !value) {
+                const { key, value} = move;
+                const { row, col } = key;
+                if (!Number.isInteger(row) || !Number.isInteger(col) || !value) {
                     throw new Error('Invalid Move');
                 }
                 state.board[row][col] = value;
