@@ -1,8 +1,8 @@
 import colors from '../constants/colors';
 
 export default class Tile {
-    constructor(order) {
-        this.order = order;
+    constructor(row, col) {
+        this.order = {row, col};
         this.color = colors.white;
         this.resetScore();
     }

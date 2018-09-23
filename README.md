@@ -1,4 +1,9 @@
-# connect
+# Vue.JS Connect 4
+
+A simple implementation of Connect 4
+Features:
+- [ ] player versus player
+- [ ] player vs ai
 
 ## Project setup
 ```
