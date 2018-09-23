@@ -6,6 +6,7 @@ import colors from '../../src/constants/colors';
 const { makeMove } = mutations;
 
 describe('should implement moves', function() {
+
     it('should move to the first row first column', function() {
         expect(board[0][0].color, 'Expected Intital Color to be White').to.equal(colors.white);
         const state = { board };

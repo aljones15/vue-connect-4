@@ -1,4 +1,5 @@
 --colors
 --require ./test/setup.js
+--require mocha-steps
 --reporter mochawesome
 (^node_modules)/**/*.spec.js

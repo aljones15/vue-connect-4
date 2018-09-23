@@ -31,13 +31,13 @@ export const mutations = {
             incrementRound(state) {
                 state.round++;
             },
-            winnner(state, winner) {
+            declareWinnner(state, winner) {
                 state.winners.push(winner);
             },
             reset(state) {
                 state.players = [];
                 state.round = 0;
-                state.moves = new Map(),
+                state.board = board,
                 state.thinking = false
             }
        };
