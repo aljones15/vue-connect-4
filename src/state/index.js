@@ -20,12 +20,12 @@ export const mutations = {
                 state.players = players;
             },
             makeMove(state, move) {
-                const { key, value} = move;
+                const { key, color} = move;
                 const { row, col } = key;
-                if (!Number.isInteger(row) || !Number.isInteger(col) || !value) {
+                if (!Number.isInteger(row) || !Number.isInteger(col) || !color) {
                     throw new Error('Invalid Move');
                 }
-                state.board[row][col] = value;
+                state.board[row][col].taken = color;
             },
             thinking(state, thinking) {
                 state.thinking = thinking;

@@ -20,7 +20,7 @@ export default class Tile {
         this._color = c;
     }
     get taken() {
-        this._taken;
+        return this._taken;
     }
     set taken(color) {
         this._taken = true;

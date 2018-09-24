@@ -14,8 +14,8 @@ describe('should implement moves', function() {
         expect(board[row][col].color, 'Expected Intital Color to be White').to.equal(colors.white);
         const state = { board };
         const key = {row, col };
-        const value = new Tile(row,col, colors.red);
-        makeMove(state, {key, value});
+        const color = colors.red;
+        makeMove(state, {key, color});
         expect(state.board[row][col].color, 'Expected new Color to be Red').to.equal(colors.red);
         
     });
