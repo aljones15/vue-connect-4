@@ -23,10 +23,9 @@ export default {
     min-width: 25px;
   }
   .circle {
-      width: 64px;
-      height: 64px;
+      width: 14vmax;
+      height: 14vmax;
       border-radius: 100%;
-      background-color: white;
   }
   .white {
       background-color: white;
