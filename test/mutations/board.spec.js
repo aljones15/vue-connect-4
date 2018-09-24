@@ -1,5 +1,6 @@
 import { expect } from 'chai';
-import { mutations, boardFactory } from '../../src/state';
+import mutations from '../../src/state/mutations';
+import { boardFactory } from '../../src/state/factories';
 import Tile from '../../src/models/Tiles';
 import colors from '../../src/constants/colors';
 

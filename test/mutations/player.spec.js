@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { mutations } from '../../src/state';
+import mutations from '../../src/state/mutations';
 import Player from '../../src/models/Player';
 import playerTypes from '../../src/constants/playerTypes';
 

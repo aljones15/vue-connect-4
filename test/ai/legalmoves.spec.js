@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import legalMoves from '../../src/ai/legal';
-import { mutations, boardFactory } from '../../src/state';
+import mutations from '../../src/state/mutations';
+import { boardFactory } from '../../src/state/factories';
 import colors from '../../src/constants/colors';
 
 const { makeMove } = mutations;
