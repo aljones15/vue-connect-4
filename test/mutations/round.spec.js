@@ -1,8 +1,9 @@
 import { expect } from 'chai';
-import { mutations, board } from '../../src/state';
+import { mutations, boardFactory } from '../../src/state';
 import Player from '../../src/state/Player';
 import playerTypes from '../../src/constants/playerTypes';
 
+const board = boardFactory();
 const {incrementRound, declareWinnner, reset} = mutations;
 
 describe('it should mutate a round', function() {

@@ -1,19 +1,22 @@
 import { expect } from 'chai';
-import { mutations, board } from '../../src/state';
+import { mutations, boardFactory } from '../../src/state';
 import Tile from '../../src/state/Tiles';
 import colors from '../../src/constants/colors';
 
 const { makeMove } = mutations;
+const board = boardFactory();
 
 describe('should implement moves', function() {
 
     it('should move to the first row first column', function() {
-        expect(board[0][0].color, 'Expected Intital Color to be White').to.equal(colors.white);
+        const row = 5;
+        const col = 6;
+        expect(board[row][col].color, 'Expected Intital Color to be White').to.equal(colors.white);
         const state = { board };
-        const key = {row: 0, col: 0};
-        const value = new Tile(0,0, colors.red);
+        const key = {row, col };
+        const value = new Tile(row,col, colors.red);
         makeMove(state, {key, value});
-        expect(state.board[0][0].color, 'Expected new Color to be Red').to.equal(colors.red);
+        expect(state.board[row][col].color, 'Expected new Color to be Red').to.equal(colors.red);
         
     });
 

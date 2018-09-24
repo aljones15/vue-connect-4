@@ -3,13 +3,15 @@ import range from 'lodash/range';
 import Tile from './Tiles';
 
 // this could have been a Map but Vue.JS does not have Map support or Set suppoer yet
-export const board = range(6).map((row) => range(7).map((col) => new Tile(row, col)));
+export function boardFactory() {
+    return range(6).map((row) => range(7).map((col) => new Tile(row, col)));
 
+} 
 export const state = {
             players: [],
             round: 0,
             winners: [],
-            board,
+            board: boardFactory(),
             thinking: false
         };
 
@@ -37,7 +39,7 @@ export const mutations = {
             reset(state) {
                 state.players = [];
                 state.round = 0;
-                state.board = board,
+                state.board = boardFactory(),
                 state.thinking = false
             }
        };

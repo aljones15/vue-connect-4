@@ -4,6 +4,7 @@ export default class Tile {
     constructor(row, col, color = colors.white) {
         this.order = {row, col};
         this._color = color;
+        this._taken = false;
         this.resetScore();
     }
     resetScore() {
@@ -17,5 +18,12 @@ export default class Tile {
     }
     set color(c) {
         this._color = c;
+    }
+    get taken() {
+        this._taken;
+    }
+    set taken(color) {
+        this._taken = true;
+        this.color = color;
     }
 }
