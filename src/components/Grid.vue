@@ -5,8 +5,7 @@
              v-bind:key='index'
              class='uk-width-1-7'
              v-for='(tile, index) in row'
-             :tile="tile"
-             
+             :tile="tile" 
          />
      </div>
   </div>
