@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { legalMoves } from '../../src/ai';
+import legalMoves from '../../src/ai/legal';
 import { mutations, boardFactory } from '../../src/state';
 import colors from '../../src/constants/colors';
 

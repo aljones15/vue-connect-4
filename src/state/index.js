@@ -1,6 +1,6 @@
 import Vuex from 'vuex';
 import range from 'lodash/range';
-import Tile from './Tiles';
+import Tile from '../models/Tiles';
 
 // this could have been a Map but Vue.JS does not have Map support or Set suppoer yet
 export function boardFactory() {
@@ -10,6 +10,8 @@ export function boardFactory() {
 export const state = {
             players: [],
             round: 0,
+            // coerce the boolean to a number to get player index
+            currentPlayer: false,
             winners: [],
             board: boardFactory(),
             thinking: false
@@ -32,6 +34,7 @@ export const mutations = {
             },
             incrementRound(state) {
                 state.round++;
+                state.currentPlayer = !state.currentPlayer;
             },
             declareWinnner(state, winner) {
                 state.winners.push(winner);
@@ -39,8 +42,9 @@ export const mutations = {
             reset(state) {
                 state.players = [];
                 state.round = 0;
-                state.board = boardFactory(),
-                state.thinking = false
+                state.board = boardFactory();
+                state.thinking = false;
+                state.currentPlayer = false;
             }
        };
 

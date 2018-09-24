@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { mutations, boardFactory } from '../../src/state';
-import Tile from '../../src/state/Tiles';
+import Tile from '../../src/models/Tiles';
 import colors from '../../src/constants/colors';
 
 const { makeMove } = mutations;

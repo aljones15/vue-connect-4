@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { mutations } from '../../src/state';
-import Player from '../../src/state/Player';
+import Player from '../../src/models/Player';
 import playerTypes from '../../src/constants/playerTypes';
 
 describe('player mutations', function() {

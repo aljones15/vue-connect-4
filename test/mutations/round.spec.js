@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { mutations, boardFactory } from '../../src/state';
-import Player from '../../src/state/Player';
+import Player from '../../src/models/Player';
 import playerTypes from '../../src/constants/playerTypes';
 
 const board = boardFactory();
@@ -30,6 +30,7 @@ describe('it should mutate a round', function() {
     step('should reset the game', function() {
         reset(state);
         const resetState = {
+            currentPlayer: false,
             players: [],
             round: 0,
             board,
