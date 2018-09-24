@@ -2,10 +2,11 @@
   <div>
      <div class='row' v-bind:key='index' v-for='(row, index) in grid'>
          <Square
-             :color="tile.color"
              v-bind:key='index'
              class='uk-width-1-7'
-             v-for='(tile, index) in row' 
+             v-for='(tile, index) in row'
+             :tile="tile"
+             
          />
      </div>
   </div>

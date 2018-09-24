@@ -1,14 +1,25 @@
 <template>
-  <span class='square uk-flex uk-flex-center'>
-    <div :class="color" class="circle" />
+  <span v-on:click="move(tile)" class='square uk-flex uk-flex-center'>
+    <div :class="tile.color" class="circle" />
   </span>
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 
 export default {
   name: 'Square',
-  props: { color: { type: String, default: 'white' } }
+  props: {
+      color: { type: String, default: 'white' },
+      tile: { type: Object, default: null} 
+  },
+  methods: {
+      move(tile) {
+          const move = {key: tile.order, color: 'red'}; 
+          this.makeMove(move);
+      },
+      ...mapMutations(['makeMove'])
+  },
 }
 </script>
 
