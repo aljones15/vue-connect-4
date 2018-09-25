@@ -79,6 +79,7 @@
 <script>
 export default {
   functional: true,
+  inheritAttrs: true,
   props: {
     ratio: {
       type: [Number, String],
@@ -92,7 +93,12 @@ export default {
     },
     viewBox: {
       default: '0 0 20 20'
-    }
+    },
+  },
+  computed: {
+      attrClass() {
+          console.log(this);
+      }
   }
 }
 </script>

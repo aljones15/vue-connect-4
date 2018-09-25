@@ -1,7 +1,7 @@
 <template>
   <vk-grid class="game-options" divided>
      <div class="uk-width-1-5">
-         <PlayerAvatar :type='player.type' v-for='player in players' />         
+         <PlayerAvatar :player='player' v-for='player in players' />         
      </div>
      <div class="uk-width-1-5">
        <vk-icon icon="play-circle" class='float-left' /> <span class='float-right'>{{round}}</span>
