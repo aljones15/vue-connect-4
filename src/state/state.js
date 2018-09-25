@@ -1,8 +1,10 @@
 import { boardFactory } from './factories';
 import Player from '../models/Player';
 import playerTypes from '../constants/playerTypes';
-const human = new Player(playerTypes.human);
-const ai = new Player(playerTypes.ai);
+
+const first = true;
+const human = new Player(playerTypes.HUMAN, first);
+const ai = new Player(playerTypes.AI);
 
 export const state = {
             players: [human, ai],

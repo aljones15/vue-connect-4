@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from 'vuex';
+import { mapMutations, mapGetters, mapState } from 'vuex';
 
 export default {
   name: 'Square',
@@ -14,14 +14,19 @@ export default {
   },
   methods: {
       move(tile) {
-          const move = {key: tile.order, color: 'red'}; 
-          this.makeMove(move);
-          this.incrementRound();
+          const move = this.currentPlayer.plotMove(tile, this.grid);
+          if (move) {
+              this.makeMove(move);
+              this.incrementRound();
+          }
       },
       ...mapMutations(['makeMove', 'incrementRound'])
   },
   computed: {
-      ...mapGetters(['currentPlayer'])
+      ...mapGetters(['currentPlayer']),
+      ...mapState({
+          grid: state => state.board
+      })
   },
 }
 </script>

@@ -12,7 +12,7 @@ Vue.use(VuikitIcons)
 Vue.use(Vuex);
 Vue.config.productionTip = false
 
-const store = makeStore();
+export const store = makeStore();
 
 new Vue({
   render: h => h(App),
