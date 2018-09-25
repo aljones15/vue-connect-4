@@ -1,6 +1,6 @@
 /**
-  * @module legalMoves
-  * @param {Array} board
+  * @module LegalMoves
+  * @param {Array.<Tile[]>} board
   * @description the ai should only look at moves 
   * it can actually make in the turn it is thinking about
 */

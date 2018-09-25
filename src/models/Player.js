@@ -5,10 +5,14 @@ import legalMoves from '../ai/legal';
 
 /**
   * @class Player
-  * @param {String} type either AI or HUMAN
+  * @param {playerTypes} type either AI or HUMAN
   * @param {Boolean} first if the player starts the game
   * @description class that encapsulates
   * the player logic for the game
+  * @property {playerTypes} type AI or HUMAN
+  * @property {Numbers} wins the number of wins
+  * @property {AI} ai only available if player is an ai 
+  * @property {colors} color red, white, or blue
 */
 export class Player {
     constructor(type, first = false) {
@@ -20,16 +24,16 @@ export class Player {
         this.color = first ? colors.red : colors.blue;
     }
     /**
-      * @param {Object} tile a tile from the board
+      * @param {Tile} tile a tile from the board
       * @return {Object} move a move object to mutate the state
     */
-    produceMove(tile) {
-        const move = {key: tile.order, color: this.color}; 
+    produceMove({key}) {
+        const move = {key, color: this.color}; 
         return move;
     }
     /**
-      * @param {Object} tile a player choosen tile
-      * @param {Array} board the current board
+      * @param {Tile} tile a player choosen tile
+      * @param {Array.<Tile[]>} board the current board
       * @return {Object} move returns a move
       * @description if human we check for legal then return the move
       * if ai we use the getMove function

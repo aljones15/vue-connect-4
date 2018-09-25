@@ -9,9 +9,9 @@ export class AI {
         this.nextRound = null;
     }
     /**
-     * @param {Array} board
-     * @param {Array} legal
-     * @return {Object} a tile
+     * @param {Array.<Tile[]>} board
+     * @param {Array.<Boolean>} legal
+     * @return {Tile} a tile
      * @description this method determines a move for the ai
      */
     getMove(board, legal) {

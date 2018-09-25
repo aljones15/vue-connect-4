@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: models/Tiles.js</title>
+    <title>JSDoc: Source: constants/playerTypes.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: models/Tiles.js</h1>
+    <h1 class="page-title">Source: constants/playerTypes.js</h1>
 
     
 
@@ -26,46 +26,17 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import colors from '../constants/colors';
-
-/**
-  * @class Tile
-  * @param {Number} row row in the board array
-  * @param {Number} col index inside a row
-  * @param {colors} color either red, blue, or white defaults to white
-  * @description Tile handles the state of a single connect 4 square
-  * @property {Object} key contains row and col
-  * @property {Boolean} taken if the tile has been selected
-  * @property {colors} color the color of the circle
-  * @property {Object} score the score for each color
+            <pre class="prettyprint source linenums"><code>/** 
+  @constant playerTypes
+  @type String
+  @description HUMAN or AI
 */
-export default class Tile {
-    constructor(row, col, color = colors.white) {
-        this.key = {row, col};
-        this._color = color;
-        this._taken = false;
-        this.resetScore();
-    }
-    resetScore() {
-        this.score = {
-            player1: 0,
-            player2: 0
-        }
-    }
-    get color() {
-        return this._color;
-    }
-    set color(c) {
-        this._color = c;
-    }
-    get taken() {
-        return this._taken;
-    }
-    set taken(color) {
-        this._taken = true;
-        this.color = color;
-    }
-}
+
+export const playerTypes = {
+    HUMAN: 'HUMAN',
+    AI: 'AI'
+};
+export default playerTypes;
 </code></pre>
         </article>
     </section>
