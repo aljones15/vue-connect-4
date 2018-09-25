@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test": "vue-cli-service test:unit -r mocha-steps 'test/**/*.spec.js'"
+    "test": "vue-cli-service test:unit -r mocha-steps 'test/**/*.spec.js'",
+    "docs": "jsdoc ./src/**/*.js"
   },
   "dependencies": {
     "@vuikit/icons": "^0.8.1",
@@ -24,6 +25,7 @@
     "@vue/cli-service": "^3.0.3",
     "@vue/test-utils": "^1.0.0-beta.25",
     "chai": "^4.1.2",
+    "jsdoc": "^3.5.5",
     "mocha": "^5.2.0",
     "mocha-steps": "^1.1.0",
     "mocha-webpack": "^1.1.0",

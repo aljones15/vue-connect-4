@@ -1,23 +1,28 @@
 /**
   * @class AI
   * @description via composition provides a Player with an ai
-  * component
+  * opponent
 */
 export class AI {
     constructor() {
         this.currentRound = null;
         this.nextRound = null;
     }
-    get moves() {
-    
-    }
+    /**
+     * @param {Array} board
+     * @param {Array} legal
+     * @return {Object} a tile
+     * @description this method determines a move for the ai
+     */
     getMove(board, legal) {
         const possibleMoves = legal
             .map((row, rowIndex) => {
                 return row.map((legal, colIndex) => {
                     if (legal) return board[rowIndex][colIndex];
-                }).filter(t => t)
-            }).reduce((acc, cur) => acc.concat(cur), []);
+                })
+            })
+            .reduce((acc, cur) => acc.concat(cur), [])
+            .filter(t => t);
         return possibleMoves[0];
     }
 }

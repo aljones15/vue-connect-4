@@ -1,5 +1,5 @@
 /**
-  * @function legalMoves
+  * @module legalMoves
   * @param {Array} board
   * @description the ai should only look at moves 
   * it can actually make in the turn it is thinking about
@@ -8,8 +8,8 @@ export function legalMoves(board) {
    const bottomRow = board.length - 1;
    /**
     * @function covered
-    * @param {Number} row
-    * @param {Number} col
+    * @param {Number} row - row in the board
+    * @param {Number} col - col in a row
     * @return {Boolean}
     * @description take a row and a col return if a piece is above it
    */
@@ -19,7 +19,15 @@ export function legalMoves(board) {
        const aboveRow = row - 1;
        return !board[aboveRow][col].taken;
    }
-   
+    /**
+    * @function onTop
+    * @param {Number} row - row in a the board
+    * @param {Number} col - col in a row
+    * @return {Boolean}
+    * @description take a row and a col return if a piece is below it
+    * so it can stack on top of it
+   */
+  
    function onTop (row, col) {
        if (row === bottomRow) return false;
        const belowRow = row + 1;
