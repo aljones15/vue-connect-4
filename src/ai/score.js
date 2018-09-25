@@ -1,13 +1,15 @@
 /**
-  * @module Score
+    @namespace Score
+    @memberof AI
   * @description determines the score for each piece on the board
 */
 
 /**
- * @param {Object} tile the target tile
+ * @param {Tile} tile the target tile
  * @param {Array.<Tile[]>} board the current board
  * @return {Tile[]} neighbors of the target tile
  * @description finds neighbors of a tile in 6 directions
+ * @memberof AI.Score
 */
 export function withNeighbors(tile, board){
     /**
@@ -15,6 +17,8 @@ export function withNeighbors(tile, board){
       * @param {Tile[]} newRow
       * @param {number} col
       * @return {Tile[]}
+      * @description part of {@link withNeighbors}
+      * @memberof AI.Score
     */
     const subSet = (newRow, col) => {
         const end = newRow.length - 1;
@@ -35,9 +39,25 @@ export function withNeighbors(tile, board){
 /**
  * @param {String} color
  * @param {Array.<Tile[]>} board
+ * @param {Array.<Tile[]>} acc
  * @return {Tile[]} an array of moves
  * that would block a win for a color
+ * @memberof AI.Score
 */
 export function blockThree(board, legal) {
+    
 
+}
+
+/**
+  * @param {Array.<Tile[]>} board
+  * @param {Array<Boolean>} legal
+  * @return {Tile[]} winners winning tiles AI can legally move to
+  * @description returns if the AI can Win this turn
+  * @memberof AI.Score
+*/
+export function canWin(board, legal) {
+    const findWinner = (tile, acc = []) => {
+    
+    }
 }

@@ -1,5 +1,6 @@
 /**
   * @class AI
+  * @namespace AI
   * @description via composition provides a Player with an ai
   * opponent
 */
