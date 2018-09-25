@@ -1,35 +1,25 @@
 <template>
   <div>
-     <div class='row'>
-      <Square :color="color" v-bind:key='index' class='uk-width-1-7' v-for='(color, index) in squares' />
-    </div>
-     <div class='row'>
-      <Square :color="color" v-bind:key='index' class='uk-width-1-7' v-for='(color, index) in squares' />
-    </div>
-    <div class='row'>
-      <Square :color="value" v-bind:key="key" class='uk-width-1-7' v-for='(key, value) in board' />
-    </div>
+     <div class='row' v-bind:key='index' v-for='(row, index) in grid'>
+         <Square
+             v-bind:key='index'
+             class='uk-width-1-7'
+             v-for='(tile, index) in row'
+             :tile="tile" 
+         />
+     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import Square from './Square.vue';
-const values = [[1, 'red'], [2, 'blue']]
 export default {
   name: 'Grid',
-  data() {
-    return {
-      board() { return new Map(values); }
-    }
-  },
-  props: {
-      squares: {
-          type: Array,
-          default() { return [
-              'red', 'blue', 'red',
-              'blue', 'red', 'blue', 'blue'
-          ]}
-      }
+  computed: {
+      ...mapState({
+          grid: state => state.board
+      })
   },
   components: {
     Square
@@ -42,6 +32,7 @@ export default {
   .uk-width-1-7 {
       margin: 0px;
       padding: 0px;
+      width: 100%;
       width: 12%; 
   }
   .row {

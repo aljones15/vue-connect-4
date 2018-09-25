@@ -1,14 +1,33 @@
 <template>
-  <span class='square uk-flex uk-flex-center'>
-    <div :class="color" class="circle" />
+  <span v-on:click="move(tile)" class='square uk-flex uk-flex-center'>
+    <div :class="tile.color" class="circle" />
   </span>
 </template>
 
 <script>
+import { mapMutations, mapGetters, mapState } from 'vuex';
 
 export default {
   name: 'Square',
-  props: { color: { type: String, default: 'white' } }
+  props: {
+      tile: { type: Object, default: null} 
+  },
+  methods: {
+      move(tile) {
+          const move = this.currentPlayer.plotMove(tile, this.grid);
+          if (move) {
+              this.makeMove(move);
+              this.incrementRound();
+          }
+      },
+      ...mapMutations(['makeMove', 'incrementRound'])
+  },
+  computed: {
+      ...mapGetters(['currentPlayer']),
+      ...mapState({
+          grid: state => state.board
+      })
+  },
 }
 </script>
 
@@ -23,10 +42,9 @@ export default {
     min-width: 25px;
   }
   .circle {
-      width: 64px;
-      height: 64px;
+      width: 14vmax;
+      height: 14vmax;
       border-radius: 100%;
-      background-color: white;
   }
   .white {
       background-color: white;

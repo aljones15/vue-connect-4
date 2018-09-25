@@ -1,9 +1,9 @@
 import { expect } from 'chai';
-import { mutations } from '../src/state';
-import Player from '../src/state/Player';
-import playerTypes from '../src/constants/playerTypes';
+import mutations from '../../src/state/mutations';
+import Player from '../../src/models/Player';
+import playerTypes from '../../src/constants/playerTypes';
 
-describe('mutations', function() {
+describe('player mutations', function() {
 
     it('should see 2 human players', function() {
         const { human } = playerTypes;
@@ -23,7 +23,7 @@ describe('mutations', function() {
         expect(state.players, 'expected players to match input').to.deep.eql(players); 
     });
 
-    it('should be pondering', function() {
+    it('should be thinking', function() {
         const state = {};
         const pondering = true;
         mutations.thinking(state, pondering);
@@ -31,7 +31,7 @@ describe('mutations', function() {
         expect(state.thinking, 'expected pondering to be true').to.be.true;
     });
 
-    it('should not be pondering', function() {
+    it('should not be thinking', function() {
         const state = {};
         const pondering = false;
         mutations.thinking(state, pondering);
