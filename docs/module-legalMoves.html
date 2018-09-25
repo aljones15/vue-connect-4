@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Player</title>
+    <title>JSDoc: Module: legalMoves</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Player</h1>
+    <h1 class="page-title">Module: legalMoves</h1>
 
     
 
@@ -28,7 +28,8 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Player<span class="signature">(type, first)</span><span class="type-signature"></span></h2>
+        
+            
         
     
 </header>
@@ -37,21 +38,14 @@
     <div class="container-overview">
     
         
+            <div class="description">the ai should only look at moves 
+it can actually make in the turn it is thinking about</div>
+        
 
-    
-
-    
-    <h4 class="name" id="Player"><span class="type-signature"></span>new Player<span class="signature">(type, first)</span><span class="type-signature"></span></h4>
-    
-
-    
+        
+            
 
 
-
-<div class="description">
-    class that encapsulates
-the player logic for the game
-</div>
 
 
 
@@ -86,13 +80,13 @@ the player logic for the game
 
         <tr>
             
-                <td class="name"><code>type</code></td>
+                <td class="name"><code>board</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">Array</span>
 
 
             
@@ -102,30 +96,7 @@ the player logic for the game
 
             
 
-            <td class="description last">either AI or HUMAN</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>first</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">if the player starts the game</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -166,7 +137,7 @@ the player logic for the game
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_Player.js.html">models/Player.js</a>, <a href="models_Player.js.html#line6">line 6</a>
+        <a href="ai_legal.js.html">ai/legal.js</a>, <a href="ai_legal.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -194,6 +165,7 @@ the player logic for the game
 
 
 
+        
     
     </div>
 
@@ -220,7 +192,7 @@ the player logic for the game
     
 
     
-    <h4 class="name" id="plotMove"><span class="type-signature"></span>plotMove<span class="signature">(tile, board)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="~covered"><span class="type-signature">(inner) </span>covered<span class="signature">(row, col)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
     
 
     
@@ -228,8 +200,7 @@ the player logic for the game
 
 
 <div class="description">
-    if human we check for legal then return the move
-if ai we use the getMove function
+    take a row and a col return if a piece is above it
 </div>
 
 
@@ -265,13 +236,13 @@ if ai we use the getMove function
 
         <tr>
             
-                <td class="name"><code>tile</code></td>
+                <td class="name"><code>row</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">Number</span>
 
 
             
@@ -281,20 +252,20 @@ if ai we use the getMove function
 
             
 
-            <td class="description last">a player choosen tile</td>
+            <td class="description last">row in the board</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>board</code></td>
+                <td class="name"><code>col</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array</span>
+<span class="param-type">Number</span>
 
 
             
@@ -304,7 +275,7 @@ if ai we use the getMove function
 
             
 
-            <td class="description last">the current board</td>
+            <td class="description last">col in a row</td>
         </tr>
 
     
@@ -345,7 +316,7 @@ if ai we use the getMove function
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_Player.js.html">models/Player.js</a>, <a href="models_Player.js.html#line37">line 37</a>
+        <a href="ai_legal.js.html">ai/legal.js</a>, <a href="ai_legal.js.html#line9">line 9</a>
     </li></ul></dd>
     
 
@@ -371,10 +342,6 @@ if ai we use the getMove function
 <h5>Returns:</h5>
 
         
-<div class="param-desc">
-    move returns a move
-</div>
-
 
 
 <dl>
@@ -383,7 +350,7 @@ if ai we use the getMove function
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type">Boolean</span>
 
 
     </dd>
@@ -401,12 +368,17 @@ if ai we use the getMove function
     
 
     
-    <h4 class="name" id="produceMove"><span class="type-signature"></span>produceMove<span class="signature">(tile)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="~onTop"><span class="type-signature">(inner) </span>onTop<span class="signature">(row, col)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
     
 
     
 
 
+
+<div class="description">
+    take a row and a col return if a piece is below it
+so it can stack on top of it
+</div>
 
 
 
@@ -441,13 +413,13 @@ if ai we use the getMove function
 
         <tr>
             
-                <td class="name"><code>tile</code></td>
+                <td class="name"><code>row</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">Number</span>
 
 
             
@@ -457,7 +429,30 @@ if ai we use the getMove function
 
             
 
-            <td class="description last">a tile from the board</td>
+            <td class="description last">row in a the board</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>col</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">col in a row</td>
         </tr>
 
     
@@ -498,7 +493,7 @@ if ai we use the getMove function
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_Player.js.html">models/Player.js</a>, <a href="models_Player.js.html#line26">line 26</a>
+        <a href="ai_legal.js.html">ai/legal.js</a>, <a href="ai_legal.js.html#line22">line 22</a>
     </li></ul></dd>
     
 
@@ -524,10 +519,6 @@ if ai we use the getMove function
 <h5>Returns:</h5>
 
         
-<div class="param-desc">
-    move a move object to mutate the state
-</div>
-
 
 
 <dl>
@@ -536,7 +527,7 @@ if ai we use the getMove function
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type">Boolean</span>
 
 
     </dd>
@@ -570,7 +561,7 @@ if ai we use the getMove function
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Sep 25 2018 03:06:59 GMT+0000 (UTC)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Sep 25 2018 03:10:02 GMT+0000 (UTC)
 </footer>
 
 <script> prettyPrint(); </script>
