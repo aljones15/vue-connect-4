@@ -90,13 +90,15 @@ describe('findConnection', function() {
         const row = 0;
         const col = 0;
         const range = [0, 1, 2];
-        range.forEach(c => board[row][c].taken = colors.red);
-        range.forEach(r => board[r][col].taken = colors.red);
-        range.forEach(d => board[d][d].taken = colors.red);
+        range.forEach(r => {
+            board[row][r].taken = colors.red;
+            board[r][col].taken = colors.red;
+            board[r][r].taken = colors.red;
+        });
         const thisColor = board
             .map(row => row.filter(t => t.color === colors.red));
-        const connections = findConnection(board[row][0], thisColor);
-        const firstRow = testConnection(connections, board[row][0]);
+        const connections = findConnection(board[0][0], thisColor);
+        const firstRow = testConnection(connections, board[0][0]);
         firstRow.forEach(([tile, tiles]) => console.log(tile));
     });
 
