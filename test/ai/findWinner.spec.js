@@ -88,12 +88,11 @@ describe('findConnection', function() {
     it('should find multiple connections', function() {
         const board = boardFactory();
         const row = 0;
-        const cols = [0, 1, 2];
-        cols.forEach(col => board[row][col].taken = colors.red);
         const col = 0;
-        const rows = [0, 1, 2];
-        rows.forEach(row => board[row][col].taken = colors.red);
-        rows.forEach(d => board[d][d].taken = colors.red);
+        const range = [0, 1, 2];
+        range.forEach(c => board[row][c].taken = colors.red);
+        range.forEach(r => board[r][col].taken = colors.red);
+        range.forEach(d => board[d][d].taken = colors.red);
         const thisColor = board
             .map(row => row.filter(t => t.color === colors.red));
         const connections = findConnection(board[row][0], thisColor);
