@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: AI</title>
+    <title>JSDoc: Namespace: LegalMoves</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: AI</h1>
+    <h1 class="page-title">Namespace: LegalMoves</h1>
 
     
 
@@ -28,7 +28,8 @@
 
 <header>
     
-        <h2>AI</h2>
+        <h2>
+            <span class="ancestors"><a href="AI.html">AI</a>.</span>LegalMoves</h2>
         
     
 </header>
@@ -37,8 +38,8 @@
     <div class="container-overview">
     
         
-            <div class="description">via composition provides a Player with an ai
-opponent</div>
+            <div class="description">the ai should only look at moves 
+it can actually make in the turn it is thinking about</div>
         
 
         
@@ -73,7 +74,7 @@ opponent</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_AI.js.html">models/AI.js</a>, <a href="models_AI.js.html#line1">line 1</a>
+        <a href="ai_legal.js.html">ai/legal.js</a>, <a href="ai_legal.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -100,16 +101,6 @@ opponent</div>
     
 
     
-        <h3 class="subsection-title">Namespaces</h3>
-
-        <dl>
-            <dt><a href="AI.LegalMoves.html">LegalMoves</a></dt>
-            <dd></dd>
-        
-            <dt><a href="AI.Score.html">Score</a></dt>
-            <dd></dd>
-        </dl>
-    
 
     
 
@@ -122,7 +113,7 @@ opponent</div>
     
 
     
-    <h4 class="name" id="getMove"><span class="type-signature"></span>getMove<span class="signature">(board, legal)</span><span class="type-signature"> &rarr; {<a href="Tile.html">Tile</a>}</span></h4>
+    <h4 class="name" id=".covered"><span class="type-signature">(static) </span>covered<span class="signature">(row, col)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
     
 
     
@@ -130,7 +121,7 @@ opponent</div>
 
 
 <div class="description">
-    this method determines a move for the ai
+    take a row and a col return if a piece is above it
 </div>
 
 
@@ -166,13 +157,13 @@ opponent</div>
 
         <tr>
             
-                <td class="name"><code>board</code></td>
+                <td class="name"><code>row</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;Array.&lt;<a href="Tile.html">Tile</a>>></span>
+<span class="param-type">Number</span>
 
 
             
@@ -182,20 +173,20 @@ opponent</div>
 
             
 
-            <td class="description last"></td>
+            <td class="description last">row in the board</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>legal</code></td>
+                <td class="name"><code>col</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;Boolean></span>
+<span class="param-type">Number</span>
 
 
             
@@ -205,7 +196,7 @@ opponent</div>
 
             
 
-            <td class="description last"></td>
+            <td class="description last">col in a row</td>
         </tr>
 
     
@@ -246,7 +237,7 @@ opponent</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_AI.js.html">models/AI.js</a>, <a href="models_AI.js.html#line18">line 18</a>
+        <a href="ai_legal.js.html">ai/legal.js</a>, <a href="ai_legal.js.html#line10">line 10</a>
     </li></ul></dd>
     
 
@@ -272,10 +263,6 @@ opponent</div>
 <h5>Returns:</h5>
 
         
-<div class="param-desc">
-    a tile
-</div>
-
 
 
 <dl>
@@ -284,7 +271,184 @@ opponent</div>
     </dt>
     <dd>
         
-<span class="param-type"><a href="Tile.html">Tile</a></span>
+<span class="param-type">Boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".onTop"><span class="type-signature">(static) </span>onTop<span class="signature">(row, col)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    take a row and a col return if a piece is below it
+so it can stack on top of it
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>row</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">row in a the board</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>col</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">col in a row</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ai_legal.js.html">ai/legal.js</a>, <a href="ai_legal.js.html#line24">line 24</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Boolean</span>
 
 
     </dd>

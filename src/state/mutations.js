@@ -77,7 +77,6 @@ export const mutations = {
               * @return {Object}
             */
             reset(state) {
-                state.players = [];
                 state.round = 0;
                 state.board = boardFactory();
                 state.thinking = false;

@@ -1,5 +1,6 @@
 /**
-  * @module LegalMoves
+  * @namespace LegalMoves
+  * @memberof AI
   * @param {Array.<Tile[]>} board
   * @description the ai should only look at moves 
   * it can actually make in the turn it is thinking about
@@ -12,6 +13,7 @@ export function legalMoves(board) {
     * @param {Number} col - col in a row
     * @return {Boolean}
     * @description take a row and a col return if a piece is above it
+    * @memberof AI.LegalMoves
    */
    function covered (row, col) {
        // if we are on the top row we are not covered
@@ -26,6 +28,7 @@ export function legalMoves(board) {
     * @return {Boolean}
     * @description take a row and a col return if a piece is below it
     * so it can stack on top of it
+    * @memberof AI.LegalMoves
    */
   
    function onTop (row, col) {

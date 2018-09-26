@@ -1,6 +1,7 @@
 <template>
    <div>
      <Header :msg="msg" />
+     <GameOptions /> 
      <Grid />
    </div>
 </template>
@@ -9,13 +10,15 @@
 
 import Header from './Header.vue'
 import Grid from './Grid.vue'
+import GameOptions from './GameOptions.vue'
 
 export default {
   name: 'Main',
   props: ['msg'],
   components: {
     Header,
-    Grid
+    Grid,
+    GameOptions
   }
 
 }

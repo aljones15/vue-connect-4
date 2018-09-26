@@ -41,8 +41,8 @@ export class Player {
     plotMove(tile, board) {
         const legal = legalMoves(board);
         if (this.type === playerTypes.HUMAN) {
-            const { order } = tile;
-            const { row, col } = order;
+            const { key } = tile;
+            const { row, col } = key;
             const allowed = legal[row][col];
             if (allowed) return this.produceMove(tile);
             return null;
