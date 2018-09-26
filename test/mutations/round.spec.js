@@ -32,7 +32,6 @@ describe('it should mutate a round', function() {
         reset(state);
         const resetState = {
             currentPlayer: false,
-            players: [],
             round: 0,
             board,
             thinking: false,
