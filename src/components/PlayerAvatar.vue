@@ -1,6 +1,8 @@
 <template>
-    <vk-icon v-bind:class="{ active: isActive }" class='spacey' icon="user" v-if="human" /> 
-    <RobotIcon v-bind:class="{ active: isActive }" class='spacey' v-else />
+    <vk-icon v-bind:class="{ active: isActive }" class='spacey' icon="user" v-if="human" />
+    <span v-bind:class="{ active: isActive}" class='spacey' v-else> 
+      <RobotIcon />
+    </span>
 </template>
 
 <script>
@@ -17,7 +19,8 @@ export default {
           return this.player.type === playerTypes.HUMAN;
       },
       isActive() {
-          return this.player.color === this.currentPlayer.color;
+          const active = this.player.color === this.currentPlayer.color;
+          return active;
       },
       ...mapGetters(['currentPlayer']),
   },
@@ -32,6 +35,6 @@ export default {
         margin-right: 1rem;
     }
     .active {
-        fill: red;
+        background-image: radial-gradient(rgba(0,50,0,0.3), rgba(0,100,0,0.5), rgba(0,255,0.5));
     }
 </style>

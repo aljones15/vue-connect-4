@@ -1,20 +1,33 @@
 <template>
   <vk-grid class="game-options" divided>
      <div class="uk-width-1-5">
-         <PlayerAvatar :player='player' v-for='player in players' />         
+         <vk-icon
+           v-on:click="swapPlayers"
+           class='glow'
+           icon='users'
+         />
+         <span class='bump-right'>
+           <PlayerAvatar
+             :player='player'
+             v-bind:key="player.color"
+             v-for='player in players'
+           />
+         </span>       
      </div>
      <div class="uk-width-1-5">
-       <vk-icon icon="play-circle" class='float-left' /> <span class='float-right'>{{round}}</span>
+       <vk-icon icon="play-circle" /> <span class='bump-right'>{{round}}</span>
      </div>
      <div class="uk-width-1-5">
-       <vk-icon icon="bolt" class='float-left' /> <span class='float-right'>Wins</span>
+       <vk-icon icon="bolt" /> <span class='bump-right'>Wins</span>
      </div>
   </vk-grid>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 import PlayerAvatar from './PlayerAvatar.vue';
+import Player from '../models/Player';
+import playerTypes from '../constants/playerTypes';
 
 export default {
   name: 'GameOptions',
@@ -23,6 +36,18 @@ export default {
           round: state => state.round,
           players: state => state.players,
       }),
+  },
+  methods: {
+      swapPlayers() {
+          const [one, two] = this.players;
+          if (two.type === playerTypes.AI) {
+              const newP = new Player(playerTypes.HUMAN);
+              return this.selectPlayer([one, newP]);
+          }
+          const newP = new Player(playerTypes.AI);
+          return this.selectPlayer([one, newP]);
+      },
+      ...mapMutations(['selectPlayer'])
   },
   components: {
       PlayerAvatar
@@ -40,5 +65,11 @@ export default {
     }
     .float-right {
         float: right;
+    }
+    .bump-right {
+        margin-left: 1rem;
+    }
+    .glow {
+        box-shadow: 0px 0px 0px 1px black;
     }
 </style>

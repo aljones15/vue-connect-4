@@ -1,5 +1,4 @@
 <template functional>
-<span>
 <svg
   version="1.1"
   id="Layer_1"
@@ -74,7 +73,6 @@
 <g>
 </g>
 </svg>
-</span>
 </template>
 <script>
 export default {
@@ -95,10 +93,5 @@ export default {
       default: '0 0 20 20'
     },
   },
-  computed: {
-      attrClass() {
-          console.log(this);
-      }
-  }
 }
 </script>
