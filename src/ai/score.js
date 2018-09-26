@@ -35,6 +35,24 @@ export function withNeighbors(tile, board){
     const currentRow = subSet(row, col);
     return [topRow, currentRow, bottomRow];
 }
+/**
+  * @function findConnection
+  * @param {Tile} tile
+  * @param {Number} depth
+  * @return {Tile[]}
+  * @description searches to a max depth of 3 recursively from the starting tile
+  * @memberof AI.Score
+*/  
+export function findConnection (tile, members, depth = 3) {
+    // we do not need the bottom row here because we start at the first row
+    const searchSpace = members.map(row => row.filter(t => t !== tile));
+    const adjacentColors = withNeighbors(tile, searchSpace)
+        .filter(row => row.length);
+   if (!adjacentColors.length) return [tile];
+   if (depth <= 0) return [tile, adjacentColors];
+   const next = adjacentColors.map(row => row.map(ac => findConnection(ac, searchSpace, depth - 1))).reduce((acc, cur) => acc.concat(cur), []);
+   return [tile, next]; 
+}
 
 /**
   * @param {Array.<Tile[]>} board
@@ -48,27 +66,9 @@ export function canWin(board, legal, color) {
     // restrict the search space to just this color
     const thisColor = board
         .map(row => row.filter(t => t.color === color));
-    /**
-      * @function FindWinner
-      * @param {Tile} tile
-      * @param {Number} depth
-      * @return {Tile[]}
-      * @description searches to a max depth of 3 recursively from the starting tile
-      * @memberof AI.Score
-      */  
-    // if 3 in a row and a legal move 
-    // for the 4th move then return winning tile(s)
-    const findWinner = (tile, depth = 3) => {
-           // we do not need the bottom row here because we start at the first row
-           const adjacentColors = withNeighbors(tile, thisColor).slice(0,2);
-           const anyNeighbors = adjacentColors.reduce((acc, row) => acc + row.length, 0);
-           if (!anyNeighbors) return [];
-           if (depth <= 0) return adjacentColors;
-            
-    }
     // this will start at the bottom row 0 and go up
     const pieces = thisColor
-        .map(row => row.map(findWinner))
+        .map(row => row.map(t => findConnection(t, thisColor)))
         .reduce((acc, cur) => acc.concat(cur), [])
     return pieces;
 }
