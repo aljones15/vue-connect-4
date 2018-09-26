@@ -85,4 +85,20 @@ describe('findConnection', function() {
         expect(connection).to.have.lengthOf(0);
     });
 
+    it('should find multiple connections', function() {
+        const board = boardFactory();
+        const row = 0;
+        const cols = [0, 1, 2];
+        cols.forEach(col => board[row][col].taken = colors.red);
+        const col = 0;
+        const rows = [0, 1, 2];
+        rows.forEach(row => board[row][col].taken = colors.red);
+        rows.forEach(d => board[d][d].taken = colors.red);
+        const thisColor = board
+            .map(row => row.filter(t => t.color === colors.red));
+        const connections = findConnection(board[row][0], thisColor);
+        const firstRow = testConnection(connections, board[row][0]);
+        firstRow.forEach(([tile, tiles]) => console.log(tile));
+    });
+
 });
