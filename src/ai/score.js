@@ -52,12 +52,18 @@ export function blockThree(board, legal) {
 /**
   * @param {Array.<Tile[]>} board
   * @param {Array<Boolean>} legal
+  * @param {colors} color
   * @return {Tile[]} winners winning tiles AI can legally move to
   * @description returns if the AI can Win this turn
   * @memberof AI.Score
 */
-export function canWin(board, legal) {
+export function canWin(board, legal, color) {
+    // restrict the search space to just this color
+    const thisColor = board
+        .map(row => row.filter(t => t.color === color));
     const findWinner = (tile, acc = []) => {
     
     }
+    // if 3 in a row and a legal move 
+    // for 4 then return winning tile
 }

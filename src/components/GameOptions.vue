@@ -18,7 +18,11 @@
        <vk-icon icon="play-circle" /> <span class='bump-right'>{{round}}</span>
      </div>
      <div class="uk-width-1-5">
-       <vk-icon icon="bolt" /> <span class='bump-right'>Wins</span>
+       <vk-icon icon="bolt" />
+       <span class='bump-right'>Wins</span>
+     </div>
+     <div class="uk-width-1-5">
+       <vk-icon icon="refresh" v-on:click="reset" />
      </div>
   </vk-grid>
 </template>
@@ -47,7 +51,7 @@ export default {
           const newP = new Player(playerTypes.AI);
           return this.selectPlayer([one, newP]);
       },
-      ...mapMutations(['selectPlayer'])
+      ...mapMutations(['selectPlayer', 'reset'])
   },
   components: {
       PlayerAvatar
