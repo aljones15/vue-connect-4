@@ -37,19 +37,6 @@ export function withNeighbors(tile, board){
 }
 
 /**
- * @param {String} color
- * @param {Array.<Tile[]>} board
- * @param {Array.<Tile[]>} acc
- * @return {Tile[]} an array of moves
- * that would block a win for a color
- * @memberof AI.Score
-*/
-export function blockThree(board, legal) {
-    
-
-}
-
-/**
   * @param {Array.<Tile[]>} board
   * @param {Array<Boolean>} legal
   * @param {colors} color
@@ -61,9 +48,42 @@ export function canWin(board, legal, color) {
     // restrict the search space to just this color
     const thisColor = board
         .map(row => row.filter(t => t.color === color));
-    const findWinner = (tile, acc = []) => {
-    
-    }
+    /**
+      * @function FindWinner
+      * @param {Tile} tile
+      * @param {Number} depth
+      * @return {Tile[]}
+      * @description searches to a max depth of 3 recursively from the starting tile
+      * @memberof AI.Score
+      */  
     // if 3 in a row and a legal move 
-    // for 4 then return winning tile
+    // for the 4th move then return winning tile(s)
+    const findWinner = (tile, depth = 3) => {
+           // we do not need the bottom row here because we start at the first row
+           const adjacentColors = withNeighbors(tile, thisColor).slice(0,2);
+           const anyNeighbors = adjacentColors.reduce((acc, row) => acc + row.length, 0);
+           if (!anyNeighbors) return [];
+           if (depth <= 0) return adjacentColors;
+            
+    }
+    // this will start at the bottom row 0 and go up
+    const pieces = thisColor
+        .map(row => row.map(findWinner))
+        .reduce((acc, cur) => acc.concat(cur), [])
+    return pieces;
 }
+
+/**
+ * @param {String} color
+ * @param {Array.<Tile[]>} board
+ * @param {Array.<Tile[]>} acc
+ * @param {colors} color
+ * @return {Tile[]} an array of moves
+ * that would block a win for a color
+ * @memberof AI.Score
+*/
+export function blockThree(board, legal, color) {
+    return canWin(board, legal, color);
+}
+
+

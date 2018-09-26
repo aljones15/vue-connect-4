@@ -76,4 +76,7 @@ export default {
     .glow {
         box-shadow: 0px 0px 0px 1px black;
     }
+    span {
+        vertical-align: bottom;
+    }
 </style>
