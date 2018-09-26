@@ -43,15 +43,15 @@ export function withNeighbors(tile, board){
   * @description searches to a max depth of 3 recursively from the starting tile
   * @memberof AI.Score
 */  
-export function findConnection (tile, members, depth = 3) {
-    // we do not need the bottom row here because we start at the first row
+export function findConnection (tile, members, depth = 2) {
     const searchSpace = members.map(row => row.filter(t => t !== tile));
     const adjacentColors = withNeighbors(tile, searchSpace)
         .filter(row => row.length);
-   if (!adjacentColors.length) return [tile];
    if (depth <= 0) return [tile, adjacentColors];
+   if (!adjacentColors.length) return [];
    const next = adjacentColors.map(row => row.map(ac => findConnection(ac, searchSpace, depth - 1))).reduce((acc, cur) => acc.concat(cur), []);
-   return [tile, next]; 
+   const noDeadEnds = next.filter(results => results.length);
+   return [tile, noDeadEnds]; 
 }
 
 /**
