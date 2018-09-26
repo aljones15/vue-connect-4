@@ -43,4 +43,18 @@ describe('findConnection', function() {
         expect(finalRow).to.have.lengthOf(0);
     });
 
+    it('should find a connection for a diagnol line', function() {
+        const board = boardFactory();
+        const rows = [0, 1, 2];
+        rows.forEach(row => board[row][row].taken = colors.blue);
+         
+        const thisColor = board
+            .map(row => row.filter(t => t.color === colors.blue));
+        const connection = findConnection(board[0][0], thisColor);
+        const secondRow = testConnection(connection, board[0][0]);
+        const thirdRow = testConnection(secondRow[0], board[1][1]);
+        const finalRow = testConnection(thirdRow[0], board[2][2]);
+        expect(finalRow).to.have.lengthOf(0);
+    });
+
 });
