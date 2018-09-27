@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { boardFactory } from '../../src/state/factories';
 import colors from '../../src/constants/colors';
 import { findConnections } from '../../src/ai/score';
+import { randomStart } from '../../src/ai/utils';
 import Tile from '../../src/models/Tiles';
 
 function testConnection(connection, expectedTiles) {
@@ -15,7 +16,7 @@ describe('findConnections', function() {
     
     it('should find a connection for a horizontal line from left to right', function() {
         const board = boardFactory();
-        const row = 0;
+        const row = randomStart(5);
         const cols = [0, 1, 2];
         cols.forEach(col => board[row][col].taken = colors.blue);
         const thisColor = board
@@ -28,7 +29,7 @@ describe('findConnections', function() {
 
     it('should find a connection for a horizontal line from right to left', function() {
         const board = boardFactory();
-        const row = 0;
+        const row = randomStart(5);
         const cols = [0, 1, 2];
         cols.forEach(col => board[row][col].taken = colors.blue);
         const thisColor = board
@@ -41,7 +42,7 @@ describe('findConnections', function() {
 
     it('should find a connection for a vertical line from bottom to top', function() {
         const board = boardFactory();
-        const col = 0;
+        const col = randomStart(6);
         const rows = [0, 1, 2];
         rows.forEach(row => board[row][col].taken = colors.blue);
         const thisColor = board
@@ -54,7 +55,7 @@ describe('findConnections', function() {
 
     it('should find a connection for a vertical line from top to bottom', function() {
         const board = boardFactory();
-        const col = 1;
+        const col = randomStart(6);
         const rows = [0, 1, 2];
         rows.forEach(row => board[row][col].taken = colors.blue);
         const thisColor = board
@@ -109,7 +110,7 @@ describe('findConnections', function() {
 
     it('should not find a connection for a different color', function() {
         const board = boardFactory();
-        const row = 0;
+        const row = randomStart(5);
         const cols = [0, 1, 2];
         cols.forEach(col => board[row][col].taken = colors.blue);
         const thisColor = board
@@ -141,7 +142,7 @@ describe('findConnections', function() {
         testConnection(connections[2], expectedDiagnolTiles);
     });
 
-    it('should find one match in 3 when traversing diagnaol from top', function() {
+    it('should find one match in 3 when traversing diagnol from top', function() {
         const board = boardFactory();
         const row = 0;
         const col = 0;
@@ -157,6 +158,30 @@ describe('findConnections', function() {
         expect(connections).to.have.lengthOf(1);
         const expectedDiagnolTiles = [board[2][2], board[1][1], board[0][0]];
         testConnection(connections[0], expectedDiagnolTiles);
+    });
+
+    it('should not find a 3 match for a Y shape', function() {
+        const board = boardFactory();
+        const start = board[5][3];
+        const ys = [[5,3], [4,3], [3,2], [3,4], [2,5]];
+        ys.forEach(([row, col]) => board[row][col].taken = colors.red);
+        const thisColor = board
+            .map(row => row.map(t => t.color === colors.red ? t : false));
+        const connections = findConnections(start, thisColor);
+        expect(connections).to.have.lengthOf(0);
+    });
+
+    it('should find a 3 match for a Y shape', function() {
+        const board = boardFactory();
+        const start = board[4][3];
+        const ys = [[5,3], [4,3], [3,2], [3,4], [2,5]];
+        ys.forEach(([row, col]) => board[row][col].taken = colors.red);
+        const thisColor = board
+            .map(row => row.map(t => t.color === colors.red ? t : false));
+        const connections = findConnections(start, thisColor);
+        expect(connections).to.have.lengthOf(1);
+        const expectedTiles = [start, board[3][4], board[2][5]];
+        testConnection(connections[0], expectedTiles);
     });
 
 });

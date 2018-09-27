@@ -3,16 +3,6 @@ import { boardFactory } from '../../src/state/factories';
 import colors from '../../src/constants/colors';
 import { canWin } from '../../src/ai/score';
 
-/**
- * @function rand
- * @param {Number} limit the highest number
- * @return {Number}
- * @memberof Test
- * @description rand returns a random number that will be the limit if it returns 1
- */
-function rand(limit = 6) {
-    return Math.floor(Math.random() * limit);
-}
 
 describe('can win', function() {
     it('it should see a horizontal 3 in a row win', function() {

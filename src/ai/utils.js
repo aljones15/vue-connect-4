@@ -19,3 +19,15 @@ export function last(l) {
     if (last <= 0) return last[0];
     return l[last];
 }
+
+
+/**
+ * @function rand
+ * @param {Number} limit the highest number
+ * @return {Number}
+ * @memberof Test
+ * @description rand returns a random number that will be the limit if it returns 1
+ */
+export function randomStart(limit = 6) {
+    return Math.floor(Math.random() * limit);
+}

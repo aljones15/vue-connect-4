@@ -69,16 +69,17 @@ export function findConnections(tile, searchSpace, depth = 3) {
                if (ac) {
                    path.push(ac);
                    return loop++
-               } 
-               break;
-           } catch(e) {
+               }
                loop = depth;
+               return loop;
+           } catch(e) {
                console.error(e); // eslint-disable-line no-console
+               loop = depth;
                break;
            }
        }
    });
-   return connections;
+   return connections.filter(c => c.length === depth);
 }
 
 /**
