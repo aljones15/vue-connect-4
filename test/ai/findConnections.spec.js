@@ -5,9 +5,9 @@ import { findConnections } from '../../src/ai/score';
 import { randomStart } from '../../src/ai/utils';
 import Tile from '../../src/models/Tiles';
 
-function testConnection(connection, expectedTiles) {
+function testConnection(connection, expectedTiles, depth = 3) {
     expect(connection, 'Expected Connection to be an array').to.be.an('array');
-    expect(connection, 'expected the default depth of 3').to.have.lengthOf(3);
+    expect(connection, `expected the depth of ${depth}`).to.have.lengthOf(depth);
     connection.forEach(c => expect(c, 'Expected Each Connection to be a Tile').to.be.an.instanceOf(Tile));
     expect(connection, 'expected connection to match the prepared test case array').to.deep.eql(expectedTiles);
 }
@@ -182,6 +182,28 @@ describe('findConnections', function() {
         expect(connections).to.have.lengthOf(1);
         const expectedTiles = [start, board[3][4], board[2][5]];
         testConnection(connections[0], expectedTiles);
+    });
+
+    it('should find multiple winners in a rows', function() {
+        const board = boardFactory();
+        const row = 0;
+        const col = 0;
+        const range = [0, 1, 2, 3];
+        range.forEach(r => {
+            board[row][r].taken = colors.red;
+            board[r][col].taken = colors.red;
+            board[r][r].taken = colors.red;
+        });
+        const thisColor = board
+            .map(row => row.map(t => t.color === colors.red ? t : false));
+        const connections = findConnections(board[0][0], thisColor, 4);
+        expect(connections).to.have.lengthOf(3);
+        const expectedHorizontalTiles = [board[row][0], board[row][1], board[row][2], board[row][3]];
+        testConnection(connections[0], expectedHorizontalTiles, 4);
+        const expectedVerticalTiles = [board[0][col], board[1][col], board[2][col], board[3][col]];
+        testConnection(connections[1], expectedVerticalTiles, 4);
+        const expectedDiagnolTiles = [board[0][0], board[1][1], board[2][2], board[3][3]];
+        testConnection(connections[2], expectedDiagnolTiles, 4);
     });
 
 });

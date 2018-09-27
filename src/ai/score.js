@@ -118,9 +118,12 @@ export function canWin(board, legal, color) {
     const remove = true;
     const thisColor = flatten(onlyMyColor(board, color, remove));
     // this will start at the bottom row 0 and go up
-    const pieces = thisColor.map(t => findConnections(t, board, 4));
+    const pieces = flatten(thisColor.map(t => findConnections(t, board, 4)));
     // win means that the final 4th tile is legal i.e. not taken and also can be placed on top of
-    return pieces;
+    const isLegal = (({key}) => legal[key.col][key.row]);
+    const winners = pieces.filter(r => isLegal(last(r)));
+    
+    return winners;
 }
 
 /**
