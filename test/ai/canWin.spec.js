@@ -8,10 +8,11 @@ describe('can win', function() {
     it('it should see a horizontal 3 in a row win', function() {
         const board = boardFactory();
         const row = 0;
-        const cols = [0, 1, 2];
+        const cols = [0];
         cols.forEach(col => board[row][col].taken = colors.blue);
         const legal = legalMoves(board);
         const winner = canWin(board, legal, colors.blue);
+        console.log(winner);
     });
 
     it('should see a vertical 3 in a row win', function() {

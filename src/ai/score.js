@@ -39,6 +39,18 @@ export function withNeighbors(tile, board) {
 }
 
 /**
+ * @function getDirection
+ * @param {Object} baseKey
+ * @param {Object} col row
+ * @return {Object} direction
+ * @description gets the direction we are searching in
+ * @memberof AI.Score
+ */
+export function getDirection (baseKey, {col, row}) {
+    return {row: row - baseKey.row, col: col - baseKey.col}
+}
+
+/**
   * @function findConnections
   * @param {Tile} tile
   * @param {Array.<Tile[]>} searchSpace
@@ -50,17 +62,15 @@ export function withNeighbors(tile, board) {
 export function findConnections(tile, searchSpace, depth = 3) {
    const adjacentColors = flatten(withNeighbors(tile, searchSpace)).filter(n => n);
    const { key : baseKey } = tile;
-   const getDirection = ({col, row}) => ({row: row - baseKey.row, col: col - baseKey.col});
    const connections = [];
    adjacentColors.forEach(ac => {
        if (ac === tile) return null;
        const path = [tile, ac];
        connections.push(path);
        const { key } = ac;
-       const direction = getDirection(key);
+       const direction = getDirection(baseKey, key);
        const nextDir = (last) => ({row: last.key.row + direction.row, col: last.key.col + direction.col});
-       let loop = 0;
-       while(loop < depth) {
+       while(path.length < depth) {
            try {
                const lastPath = last(path);
                const nextNeighbors = flatten(withNeighbors(lastPath, searchSpace)).filter(n => n);
@@ -68,18 +78,31 @@ export function findConnections(tile, searchSpace, depth = 3) {
                const ac = nextNeighbors.find(ac => ac.key.row === nextDirection.row && ac.key.col === nextDirection.col);
                if (ac) {
                    path.push(ac);
-                   return loop++
+               } else {
+                   break;
                }
-               loop = depth;
-               return loop;
            } catch(e) {
                console.error(e); // eslint-disable-line no-console
-               loop = depth;
                break;
            }
        }
    });
    return connections.filter(c => c.length === depth);
+}
+
+/**
+ * @function onlyMyColor
+ * @param {Array.<Tile[]>}
+ * @param {colors} color
+ * @return {Array.<Tile[]>}
+ * @description replaces all tiles that not my color with other false
+  * @memberof AI.Score
+ */
+export function onlyMyColor(board, color, remove = false) {
+    if (remove) {
+        return board.map(row => row.filter(t => t.color === color));
+    }
+    return board.map(row => row.map(t => t.color === color ? t : false));
 }
 
 /**
@@ -92,12 +115,11 @@ export function findConnections(tile, searchSpace, depth = 3) {
 */
 export function canWin(board, legal, color) {
     // restrict the search space to just this color
-    const thisColor = board
-        .map(row => row.filter(t => t.color === color));
+    const remove = true;
+    const thisColor = flatten(onlyMyColor(board, color, remove));
     // this will start at the bottom row 0 and go up
-    const pieces = thisColor
-        .map(row => row.map(t => findConnections(t, thisColor)))
-        .reduce((acc, cur) => acc.concat(cur), [])
+    const pieces = thisColor.map(t => findConnections(t, board, 4));
+    // win means that the final 4th tile is legal i.e. not taken and also can be placed on top of
     return pieces;
 }
 

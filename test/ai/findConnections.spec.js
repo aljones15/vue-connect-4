@@ -160,7 +160,7 @@ describe('findConnections', function() {
         testConnection(connections[0], expectedDiagnolTiles);
     });
 
-    it('should not find a 3 match for a Y shape', function() {
+    it('should not find a 3 match for a Y shape from the root', function() {
         const board = boardFactory();
         const start = board[5][3];
         const ys = [[5,3], [4,3], [3,2], [3,4], [2,5]];
@@ -171,7 +171,7 @@ describe('findConnections', function() {
         expect(connections).to.have.lengthOf(0);
     });
 
-    it('should find a 3 match for a Y shape', function() {
+    it('should find a 3 match for a Y shape from the V', function() {
         const board = boardFactory();
         const start = board[4][3];
         const ys = [[5,3], [4,3], [3,2], [3,4], [2,5]];
