@@ -13,7 +13,7 @@ import { flatten, last } from './utils';
  * @description finds neighbors of a tile in 6 directions
  * @memberof AI.Score
 */
-export function withNeighbors(tile, board){
+export function withNeighbors(tile, board) {
     /**
       * @function subSet
       * @param {Tile[]} newRow
@@ -48,7 +48,7 @@ export function withNeighbors(tile, board){
   * @memberof AI.Score
 */  
 export function findConnections(tile, searchSpace, depth = 3) {
-   const adjacentColors = flatten(withNeighbors(tile, searchSpace));
+   const adjacentColors = flatten(withNeighbors(tile, searchSpace)).filter(n => n);
    const { key : baseKey } = tile;
    const getDirection = ({col, row}) => ({row: row - baseKey.row, col: col - baseKey.col});
    const connections = [];
@@ -63,7 +63,7 @@ export function findConnections(tile, searchSpace, depth = 3) {
        while(loop < depth) {
            try {
                const lastPath = last(path);
-               const nextNeighbors = flatten(withNeighbors(lastPath, searchSpace));
+               const nextNeighbors = flatten(withNeighbors(lastPath, searchSpace)).filter(n => n);
                const nextDirection = nextDir(lastPath);
                const ac = nextNeighbors.find(ac => ac.key.row === nextDirection.row && ac.key.col === nextDirection.col);
                if (ac) {

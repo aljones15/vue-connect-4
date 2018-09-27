@@ -19,7 +19,7 @@ describe('findConnections', function() {
         const cols = [0, 1, 2];
         cols.forEach(col => board[row][col].taken = colors.blue);
         const thisColor = board
-            .map(row => row.filter(t => t.color === colors.blue));
+            .map(row => row.map(t => t.color === colors.blue ? t : false));
         const connections = findConnections(board[row][0], thisColor);        
         expect(connections, 'Expected one connection').to.have.lengthOf(1);
         const expectedTiles = [board[row][0], board[row][1], board[row][2]];
@@ -32,7 +32,7 @@ describe('findConnections', function() {
         const cols = [0, 1, 2];
         cols.forEach(col => board[row][col].taken = colors.blue);
         const thisColor = board
-            .map(row => row.filter(t => t.color === colors.blue));
+            .map(row => row.map(t => t.color === colors.blue ? t : false));
         const connections = findConnections(board[row][2], thisColor);
         expect(connections, 'Expected one connection').to.have.lengthOf(1); 
         const expectedTiles = [board[row][2], board[row][1], board[row][0]];
@@ -45,7 +45,7 @@ describe('findConnections', function() {
         const rows = [0, 1, 2];
         rows.forEach(row => board[row][col].taken = colors.blue);
         const thisColor = board
-            .map(row => row.filter(t => t.color === colors.blue));
+            .map(row => row.map(t => t.color === colors.blue ? t : false));
         const connections = findConnections(board[0][col], thisColor);
         expect(connections, 'Expected one connection').to.have.lengthOf(1); 
         const expectedTiles = [board[0][col], board[1][col], board[2][col]];
@@ -58,7 +58,7 @@ describe('findConnections', function() {
         const rows = [0, 1, 2];
         rows.forEach(row => board[row][col].taken = colors.blue);
         const thisColor = board
-            .map(row => row.filter(t => t.color === colors.blue));
+            .map(row => row.map(t => t.color === colors.blue ? t : false));
         const connections = findConnections(board[2][col], thisColor);
         expect(connections, 'Expected one connection').to.have.lengthOf(1); 
         const expectedTiles = [board[2][col], board[1][col], board[0][col]];
@@ -72,7 +72,7 @@ describe('findConnections', function() {
         const rows = [0, 1, 2];
         rows.forEach(row => board[row][row].taken = colors.blue);         
         const thisColor = board
-            .map(row => row.filter(t => t.color === colors.blue));
+            .map(row => row.map(t => t.color === colors.blue ? t : false));
         const connections = findConnections(board[0][0], thisColor);
         expect(connections, 'Expected one connection').to.have.lengthOf(1);
         const expectedTiles = [board[0][0], board[1][1], board[2][2]];
@@ -87,7 +87,7 @@ describe('findConnections', function() {
         const rows = [0, 1, 2];
         rows.forEach(d => board[d][d].taken = colors.blue); 
         const thisColor = board
-            .map(row => row.filter(t => t.color === colors.blue));
+            .map(row => row.map(t => t.color === colors.blue ? t : false));
         const connections = findConnections(board[2][2], thisColor);
         expect(connections, 'Expected one connection').to.have.lengthOf(1);
         const expectedTiles = [board[2][2], board[1][1], board[0][0]];
@@ -99,10 +99,9 @@ describe('findConnections', function() {
         // prevent floating pieces
         const board = boardFactory();
         const rows = [0, 2, 5];
-        rows.forEach(row => board[row][row].taken = colors.blue);
-         
+        rows.forEach(row => board[row][row].taken = colors.blue);         
         const thisColor = board
-            .map(row => row.filter(t => t.color === colors.blue));
+            .map(row => row.map(t => t.color === colors.blue ? t : false));
         const connections = findConnections(board[0][0], thisColor);
         expect(connections).to.be.an('array');
         expect(connections).to.have.lengthOf(0);
@@ -114,7 +113,7 @@ describe('findConnections', function() {
         const cols = [0, 1, 2];
         cols.forEach(col => board[row][col].taken = colors.blue);
         const thisColor = board
-            .map(row => row.filter(t => t.color === colors.red));
+            .map(row => row.map(t => t.color === colors.red ? t : false));
         const connections = findConnections(board[row][0], thisColor);
         expect(connections).to.be.an('array');
         expect(connections).to.have.lengthOf(0);
@@ -131,7 +130,7 @@ describe('findConnections', function() {
             board[r][r].taken = colors.red;
         });
         const thisColor = board
-            .map(row => row.filter(t => t.color === colors.red));
+            .map(row => row.map(t => t.color === colors.red ? t : false));
         const connections = findConnections(board[0][0], thisColor);
         expect(connections).to.have.lengthOf(3);
     });

@@ -73,7 +73,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ai_score.js.html">ai/score.js</a>, <a href="ai_score.js.html#line1">line 1</a>
+        <a href="ai_score.js.html">ai/score.js</a>, <a href="ai_score.js.html#line3">line 3</a>
     </li></ul></dd>
     
 
@@ -278,7 +278,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ai_score.js.html">ai/score.js</a>, <a href="ai_score.js.html#line85">line 85</a>
+        <a href="ai_score.js.html">ai/score.js</a>, <a href="ai_score.js.html#line112">line 112</a>
     </li></ul></dd>
     
 
@@ -482,7 +482,7 @@ that would block a win for a color
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ai_score.js.html">ai/score.js</a>, <a href="ai_score.js.html#line65">line 65</a>
+        <a href="ai_score.js.html">ai/score.js</a>, <a href="ai_score.js.html#line92">line 92</a>
     </li></ul></dd>
     
 
@@ -662,7 +662,7 @@ that would block a win for a color
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ai_score.js.html">ai/score.js</a>, <a href="ai_score.js.html#line14">line 14</a>
+        <a href="ai_score.js.html">ai/score.js</a>, <a href="ai_score.js.html#line16">line 16</a>
     </li></ul></dd>
     
 
@@ -718,7 +718,7 @@ that would block a win for a color
     
 
     
-    <h4 class="name" id=".findConnection"><span class="type-signature">(static) </span>findConnection<span class="signature">(tile, depth)</span><span class="type-signature"> &rarr; {Array.&lt;<a href="Tile.html">Tile</a>>}</span></h4>
+    <h4 class="name" id=".findConnections"><span class="type-signature">(static) </span>findConnections<span class="signature">(tile, searchSpace, depth)</span><span class="type-signature"> &rarr; {Array.&lt;Array.&lt;<a href="Tile.html">Tile</a>>>}</span></h4>
     
 
     
@@ -785,6 +785,29 @@ that would block a win for a color
 
         <tr>
             
+                <td class="name"><code>searchSpace</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Array.&lt;<a href="Tile.html">Tile</a>>></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
                 <td class="name"><code>depth</code></td>
             
 
@@ -801,7 +824,7 @@ that would block a win for a color
 
             
 
-            <td class="description last"></td>
+            <td class="description last">defaults to 3</td>
         </tr>
 
     
@@ -842,7 +865,7 @@ that would block a win for a color
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ai_score.js.html">ai/score.js</a>, <a href="ai_score.js.html#line38">line 38</a>
+        <a href="ai_score.js.html">ai/score.js</a>, <a href="ai_score.js.html#line41">line 41</a>
     </li></ul></dd>
     
 
@@ -876,7 +899,7 @@ that would block a win for a color
     </dt>
     <dd>
         
-<span class="param-type">Array.&lt;<a href="Tile.html">Tile</a>></span>
+<span class="param-type">Array.&lt;Array.&lt;<a href="Tile.html">Tile</a>>></span>
 
 
     </dd>
@@ -1018,7 +1041,7 @@ that would block a win for a color
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ai_score.js.html">ai/score.js</a>, <a href="ai_score.js.html#line15">line 15</a>
+        <a href="ai_score.js.html">ai/score.js</a>, <a href="ai_score.js.html#line17">line 17</a>
     </li></ul></dd>
     
 
@@ -1080,13 +1103,13 @@ that would block a win for a color
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Player.html">Player</a></li><li><a href="Tile.html">Tile</a></li></ul><h3>Namespaces</h3><ul><li><a href="AI.html">AI</a></li><li><a href="AI.LegalMoves.html">LegalMoves</a></li><li><a href="AI.Score.html">Score</a></li><li><a href="VuexState.html">VuexState</a></li><li><a href="VuexState.factories.html">factories</a></li><li><a href="VuexState.getters.html">getters</a></li><li><a href="VuexState.mutations.html">mutations</a></li><li><a href="VuexState.state.html">state</a></li></ul><h3>Global</h3><ul><li><a href="global.html#colors">colors</a></li><li><a href="global.html#playerTypes">playerTypes</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Player.html">Player</a></li><li><a href="Tile.html">Tile</a></li></ul><h3>Namespaces</h3><ul><li><a href="AI.html">AI</a></li><li><a href="AI.LegalMoves.html">LegalMoves</a></li><li><a href="AI.Score.html">Score</a></li><li><a href="VuexState.html">VuexState</a></li><li><a href="VuexState.factories.html">factories</a></li><li><a href="VuexState.getters.html">getters</a></li><li><a href="VuexState.mutations.html">mutations</a></li><li><a href="VuexState.state.html">state</a></li></ul><h3>Global</h3><ul><li><a href="global.html#colors">colors</a></li><li><a href="global.html#flatten">flatten</a></li><li><a href="global.html#last">last</a></li><li><a href="global.html#playerTypes">playerTypes</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Sep 26 2018 20:06:19 GMT+0800 (China Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Sep 27 2018 12:21:30 GMT+0800 (China Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
