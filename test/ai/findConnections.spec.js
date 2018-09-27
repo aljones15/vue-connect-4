@@ -119,7 +119,7 @@ describe('findConnections', function() {
         expect(connections).to.have.lengthOf(0);
     });
 
-    it('should find multiple connections', function() {
+    it('should find multiple 3 in a rows', function() {
         const board = boardFactory();
         const row = 0;
         const col = 0;
@@ -133,6 +133,30 @@ describe('findConnections', function() {
             .map(row => row.map(t => t.color === colors.red ? t : false));
         const connections = findConnections(board[0][0], thisColor);
         expect(connections).to.have.lengthOf(3);
+        const expectedHorizontalTiles = [board[row][0], board[row][1], board[row][2]];
+        testConnection(connections[0], expectedHorizontalTiles);
+        const expectedVerticalTiles = [board[0][col], board[1][col], board[2][col]];
+        testConnection(connections[1], expectedVerticalTiles);
+        const expectedDiagnolTiles = [board[0][0], board[1][1], board[2][2]];
+        testConnection(connections[2], expectedDiagnolTiles);
+    });
+
+    it('should find one match in 3 when traversing diagnaol from top', function() {
+        const board = boardFactory();
+        const row = 0;
+        const col = 0;
+        const range = [0, 1, 2];
+        range.forEach(r => {
+            board[row][r].taken = colors.red;
+            board[r][col].taken = colors.red;
+            board[r][r].taken = colors.red;
+        });
+        const thisColor = board
+            .map(row => row.map(t => t.color === colors.red ? t : false));
+        const connections = findConnections(board[2][2], thisColor);
+        expect(connections).to.have.lengthOf(1);
+        const expectedDiagnolTiles = [board[2][2], board[1][1], board[0][0]];
+        testConnection(connections[0], expectedDiagnolTiles);
     });
 
 });
