@@ -1,3 +1,5 @@
+import { flatten, last } from './utils';
+
 /**
     @namespace Score
     @memberof AI
@@ -35,23 +37,48 @@ export function withNeighbors(tile, board){
     const currentRow = subSet(row, col);
     return [topRow, currentRow, bottomRow];
 }
+
 /**
-  * @function findConnection
+  * @function findConnections
   * @param {Tile} tile
-  * @param {Number} depth
-  * @return {Tile[]}
+  * @param {Array.<Tile[]>} searchSpace
+  * @param {Number} depth defaults to 3
+  * @return {Array.<Tile[]>}
   * @description searches to a max depth of 3 recursively from the starting tile
   * @memberof AI.Score
 */  
-export function findConnection (tile, members, depth = 2) {
-    const searchSpace = members.map(row => row.filter(t => t !== tile));
-    const adjacentColors = withNeighbors(tile, searchSpace)
-        .filter(row => row.length);
-   if (depth <= 0) return [tile, adjacentColors];
-   if (!adjacentColors.length) return [];
-   const next = adjacentColors.map(row => row.map(ac => findConnection(ac, searchSpace, depth - 1))).reduce((acc, cur) => acc.concat(cur), []);
-   const noDeadEnds = next.filter(results => results.length);
-   return [tile, noDeadEnds]; 
+export function findConnections(tile, searchSpace, depth = 3) {
+   const adjacentColors = flatten(withNeighbors(tile, searchSpace));
+   const { key : baseKey } = tile;
+   const getDirection = ({col, row}) => ({row: row - baseKey.row, col: col - baseKey.col});
+   const connections = [];
+   adjacentColors.forEach(ac => {
+       if (ac === tile) return null;
+       const path = [tile, ac];
+       connections.push(path);
+       const { key } = ac;
+       const direction = getDirection(key);
+       const nextDir = (last) => ({row: last.key.row + direction.row, col: last.key.col + direction.col});
+       let loop = 0;
+       while(loop < depth) {
+           try {
+               const lastPath = last(path);
+               const nextNeighbors = flatten(withNeighbors(lastPath, searchSpace));
+               const nextDirection = nextDir(lastPath);
+               const ac = nextNeighbors.find(ac => ac.key.row === nextDirection.row && ac.key.col === nextDirection.col);
+               if (ac) {
+                   path.push(ac);
+                   return loop++
+               } 
+               break;
+           } catch(e) {
+               loop = depth;
+               console.error(e); // eslint-disable-line no-console
+               break;
+           }
+       }
+   });
+   return connections;
 }
 
 /**
@@ -68,7 +95,7 @@ export function canWin(board, legal, color) {
         .map(row => row.filter(t => t.color === color));
     // this will start at the bottom row 0 and go up
     const pieces = thisColor
-        .map(row => row.map(t => findConnection(t, thisColor)))
+        .map(row => row.map(t => findConnections(t, thisColor)))
         .reduce((acc, cur) => acc.concat(cur), [])
     return pieces;
 }
