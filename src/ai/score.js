@@ -51,6 +51,18 @@ export function getDirection (baseKey, {col, row}) {
 }
 
 /**
+ * @function nextDirection
+ * @param {Object} direction
+ * @param {Object} last
+ * @return {Object}
+ * @description returns the next direction to search towards
+ * @memberof AI.Score
+ */
+export function nextDirection (direction, last) {
+    return {row: last.key.row + direction.row, col: last.key.col + direction.col};
+}
+
+/**
   * @function findConnections
   * @param {Tile} tile
   * @param {Array.<Tile[]>} searchSpace
@@ -69,13 +81,12 @@ export function findConnections(tile, searchSpace, depth = 3) {
        connections.push(path);
        const { key } = ac;
        const direction = getDirection(baseKey, key);
-       const nextDir = (last) => ({row: last.key.row + direction.row, col: last.key.col + direction.col});
        while(path.length < depth) {
            try {
                const lastPath = last(path);
                const nextNeighbors = flatten(withNeighbors(lastPath, searchSpace)).filter(n => n);
-               const nextDirection = nextDir(lastPath);
-               const ac = nextNeighbors.find(ac => ac.key.row === nextDirection.row && ac.key.col === nextDirection.col);
+               const nextDir = nextDirection(direction, lastPath);
+               const ac = nextNeighbors.find(ac => ac.key.row === nextDir.row && ac.key.col === nextDir.col);
                if (ac) {
                    path.push(ac);
                } else {
@@ -116,13 +127,29 @@ export function onlyMyColor(board, color, remove = false) {
 export function canWin(board, legal, color) {
     // restrict the search space to just this color
     const remove = true;
-    const thisColor = flatten(onlyMyColor(board, color, remove));
+    const thisColor = onlyMyColor(board, color);
+    const availableColors = flatten(onlyMyColor(board, color, remove));
     // this will start at the bottom row 0 and go up
-    const pieces = flatten(thisColor.map(t => findConnections(t, board, 4)));
+    const pieces = flatten(availableColors.map(t => findConnections(t, thisColor)));
     // win means that the final 4th tile is legal i.e. not taken and also can be placed on top of
-    const isLegal = (({key}) => legal[key.col][key.row]);
-    const winners = pieces.filter(r => isLegal(last(r)));
-    
+    const isLegal = (direction) => {
+        const [first, second, third] = direction;
+        const { key: bossKey } = first;
+        const { key: secondKey } = second;
+        const currentDirection = getDirection(bossKey, secondKey);
+        const next = nextDirection(currentDirection, third);
+        const legalWin = legal[next.row][next.col];
+        if (legalWin) {
+            direction.push(board[next.row][next.col]);
+            return direction;
+        }
+        return false;
+    };
+    const winners = [];
+    pieces.forEach(piece => {
+        const winner = isLegal(piece);
+        if (winner) winners.push(winner);
+    });
     return winners;
 }
 
