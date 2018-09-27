@@ -138,7 +138,7 @@ export function canWin(board, legal, color) {
         const { key: secondKey } = second;
         const currentDirection = getDirection(bossKey, secondKey);
         const next = nextDirection(currentDirection, third);
-        const legalWin = legal[next.row][next.col];
+        const legalWin = legal[next.row] ? legal[next.row][next.col] : false;
         if (legalWin) {
             direction.push(board[next.row][next.col]);
             return direction;
