@@ -70,8 +70,7 @@ describe('findConnections', function() {
         // prevent floating pieces
         const board = boardFactory();
         const rows = [0, 1, 2];
-        rows.forEach(row => board[row][row].taken = colors.blue);
-         
+        rows.forEach(row => board[row][row].taken = colors.blue);         
         const thisColor = board
             .map(row => row.filter(t => t.color === colors.blue));
         const connections = findConnections(board[0][0], thisColor);
@@ -86,14 +85,13 @@ describe('findConnections', function() {
         // prevent floating pieces
         const board = boardFactory();
         const rows = [0, 1, 2];
-        rows.forEach(row => board[row][row].taken = colors.blue); 
+        rows.forEach(d => board[d][d].taken = colors.blue); 
         const thisColor = board
             .map(row => row.filter(t => t.color === colors.blue));
         const connections = findConnections(board[2][2], thisColor);
         expect(connections, 'Expected one connection').to.have.lengthOf(1);
         const expectedTiles = [board[2][2], board[1][1], board[0][0]];
-        testConnection(connections[0], expectedTiles); 
-
+        testConnection(connections[0], expectedTiles);
     });
 
     it('should not find a connection', function() {
