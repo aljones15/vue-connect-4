@@ -41,7 +41,7 @@
  * @description finds neighbors of a tile in 6 directions
  * @memberof AI.Score
 */
-export function withNeighbors(tile, board){
+export function withNeighbors(tile, board) {
     /**
       * @function subSet
       * @param {Tile[]} newRow
@@ -67,6 +67,30 @@ export function withNeighbors(tile, board){
 }
 
 /**
+ * @function getDirection
+ * @param {Object} baseKey
+ * @param {Object} col row
+ * @return {Object} direction
+ * @description gets the direction we are searching in
+ * @memberof AI.Score
+ */
+export function getDirection (baseKey, {col, row}) {
+    return {row: row - baseKey.row, col: col - baseKey.col}
+}
+
+/**
+ * @function nextDirection
+ * @param {Object} direction
+ * @param {Object} last
+ * @return {Object}
+ * @description returns the next direction to search towards
+ * @memberof AI.Score
+ */
+export function nextDirection (direction, last) {
+    return {row: last.key.row + direction.row, col: last.key.col + direction.col};
+}
+
+/**
   * @function findConnections
   * @param {Tile} tile
   * @param {Array.&lt;Tile[]>} searchSpace
@@ -76,37 +100,48 @@ export function withNeighbors(tile, board){
   * @memberof AI.Score
 */  
 export function findConnections(tile, searchSpace, depth = 3) {
-   const adjacentColors = flatten(withNeighbors(tile, searchSpace));
+   const adjacentColors = flatten(withNeighbors(tile, searchSpace)).filter(n => n);
    const { key : baseKey } = tile;
-   const getDirection = ({col, row}) => ({row: row - baseKey.row, col: col - baseKey.col});
    const connections = [];
    adjacentColors.forEach(ac => {
        if (ac === tile) return null;
        const path = [tile, ac];
        connections.push(path);
        const { key } = ac;
-       const direction = getDirection(key);
-       const nextDir = (last) => ({row: last.key.row + direction.row, col: last.key.col + direction.col});
-       let loop = 0;
-       while(loop &lt; depth) {
+       const direction = getDirection(baseKey, key);
+       while(path.length &lt; depth) {
            try {
                const lastPath = last(path);
-               const nextNeighbors = flatten(withNeighbors(lastPath, searchSpace));
-               const nextDirection = nextDir(lastPath);
-               const ac = nextNeighbors.find(ac => ac.key.row === nextDirection.row &amp;&amp; ac.key.col === nextDirection.col);
+               const nextNeighbors = flatten(withNeighbors(lastPath, searchSpace)).filter(n => n);
+               const nextDir = nextDirection(direction, lastPath);
+               const ac = nextNeighbors.find(ac => ac.key.row === nextDir.row &amp;&amp; ac.key.col === nextDir.col);
                if (ac) {
                    path.push(ac);
-                   return loop++
-               } 
-               break;
+               } else {
+                   break;
+               }
            } catch(e) {
-               loop = depth;
                console.error(e); // eslint-disable-line no-console
                break;
            }
        }
    });
-   return connections;
+   return connections.filter(c => c.length === depth);
+}
+
+/**
+ * @function onlyMyColor
+ * @param {Array.&lt;Tile[]>}
+ * @param {colors} color
+ * @return {Array.&lt;Tile[]>}
+ * @description replaces all tiles that not my color with other false
+  * @memberof AI.Score
+ */
+export function onlyMyColor(board, color, remove = false) {
+    if (remove) {
+        return board.map(row => row.filter(t => t.color === color));
+    }
+    return board.map(row => row.map(t => t.color === color ? t : false));
 }
 
 /**
@@ -119,13 +154,31 @@ export function findConnections(tile, searchSpace, depth = 3) {
 */
 export function canWin(board, legal, color) {
     // restrict the search space to just this color
-    const thisColor = board
-        .map(row => row.filter(t => t.color === color));
+    const remove = true;
+    const thisColor = onlyMyColor(board, color);
+    const availableColors = flatten(onlyMyColor(board, color, remove));
     // this will start at the bottom row 0 and go up
-    const pieces = thisColor
-        .map(row => row.map(t => findConnections(t, thisColor)))
-        .reduce((acc, cur) => acc.concat(cur), [])
-    return pieces;
+    const pieces = flatten(availableColors.map(t => findConnections(t, thisColor)));
+    // win means that the final 4th tile is legal i.e. not taken and also can be placed on top of
+    const isLegal = (direction) => {
+        const [first, second, third] = direction;
+        const { key: bossKey } = first;
+        const { key: secondKey } = second;
+        const currentDirection = getDirection(bossKey, secondKey);
+        const next = nextDirection(currentDirection, third);
+        const legalWin = legal[next.row] ? legal[next.row][next.col] : false;
+        if (legalWin) {
+            direction.push(board[next.row][next.col]);
+            return direction;
+        }
+        return false;
+    };
+    const winners = [];
+    pieces.forEach(piece => {
+        const winner = isLegal(piece);
+        if (winner) winners.push(winner);
+    });
+    return winners;
 }
 
 /**
@@ -158,7 +211,7 @@ export function blockThree(board, legal, color) {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Sep 27 2018 12:21:30 GMT+0800 (China Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Sep 27 2018 18:46:07 GMT+0800 (China Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
