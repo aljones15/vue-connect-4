@@ -5,7 +5,7 @@ import colors from '../../src/constants/colors';
 import { canWin } from '../../src/ai/score';
 
 
-describe('can win', function() {
+describe('canWin', function() {
 
     it('it should see a horizontal 3 in a row win', function() {
         const board = boardFactory();
@@ -23,12 +23,12 @@ describe('can win', function() {
     it('should see a vertical 3 in a row win', function() {
         const board = boardFactory();
         const col = 0;
-        const rows = [0, 1, 2];
+        const rows = [5, 4, 3];
         rows.forEach(row => board[row][col].taken = colors.blue);
         const legal = legalMoves(board);
         const winner = canWin(board, legal, colors.blue);
         expect(winner).to.have.lengthOf(1);
-        const expectedWin = [board[col][0], board[col][1], board[col][2], board[col][3]];
+        const expectedWin = [board[5][col], board[4][col], board[3][col], board[2][col]];
         expect(winner[0]).to.have.lengthOf(4);
         expect(winner[0]).to.deep.eql(expectedWin);
 
@@ -52,12 +52,13 @@ describe('can win', function() {
 
     it('should not see a win when if the winning move would be outside the board', function() {
         const board = boardFactory();
-        const row = 0;
+        const row = 5;
         const cols = [0, 1, 2];
         cols.forEach(col => board[row][col].taken = colors.blue);
         board[row][3].taken = colors.red;
         const legal = legalMoves(board);
         const winner = canWin(board, legal, colors.blue);
+        expect(winner, 'Expected no winners').to.have.lengthOf(0);
     });
 
 });
