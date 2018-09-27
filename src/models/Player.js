@@ -18,10 +18,10 @@ export class Player {
     constructor(type, first = false) {
         this.type = type;
         this.wins = 0;
-        if (this.type === playerTypes.AI) {
-            this.ai = new AI();
-        }
         this.color = first ? colors.red : colors.blue;
+        if (this.type === playerTypes.AI) {
+            this.ai = new AI(this.color);
+        }
     }
     /**
       * @param {Tile} tile a tile from the board

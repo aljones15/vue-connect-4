@@ -1,3 +1,14 @@
+import {
+    canWin,
+    blockThree,
+} from '../ai/score';
+
+import {
+    last,
+    flatten
+} from '../ai/utils';
+import colors from '../constants/colors';
+
 /**
   * @class AI
   * @namespace AI
@@ -5,9 +16,10 @@
   * opponent
 */
 export class AI {
-    constructor() {
+    constructor(color) {
         this.currentRound = null;
         this.nextRound = null;
+        this.color = color;
     }
     /**
      * @param {Array.<Tile[]>} board
@@ -16,14 +28,26 @@ export class AI {
      * @description this method determines a move for the ai
      */
     getMove(board, legal) {
-        const possibleMoves = legal
+        const winners = canWin(board, legal, this.color);
+        if (winners.length) return last(winners[0]);
+        const opponentColor = this.color === colors.red ? colors.blue : colors.red;
+        const blockOpponentWin = blockThree(board, legal, opponentColor);
+        const middleFirst = (a, b) => {
+            const aMiddle = a.key.row === 4;
+            const bMiddle = b.key.row === 4;
+            if (aMiddle) return 1;
+            if (bMiddle) return 1;
+            return -1;
+        };
+        if (blockOpponentWin.length) return last(blockOpponentWin[0]);
+        const possibleMoves = flatten(legal
             .map((row, rowIndex) => {
-                return row.map((legal, colIndex) => {
-                    if (legal) return board[rowIndex][colIndex];
+                return row.map((allowed, colIndex) => {
+                    if (allowed) return board[rowIndex][colIndex];
                 })
-            })
-            .reduce((acc, cur) => acc.concat(cur), [])
-            .filter(t => t);
+            }))
+            .filter(t => t)
+            .sort(middleFirst);
         return possibleMoves[0];
     }
 }

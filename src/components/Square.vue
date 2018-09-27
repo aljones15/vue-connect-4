@@ -51,8 +51,27 @@ export default {
   }
   .red {
       background-color: red;
+      animation-name: slideInDown;
+      animation-duration: 1s;
+      animation-fill-mode: both;
   }
   .blue {
       background-color: blue;
+      animation-name: slideInDown;
   }
+
+  @keyframes slideInDown {
+    from {
+      transform: translate3d(0, -100%, 0);
+      visibility: visible;
+    }
+
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+.slideInDown {
+  animation-name: slideInDown;
+}
 </style>

@@ -7,7 +7,7 @@ import { canWin } from '../../src/ai/score';
 
 describe('canWin', function() {
 
-    it('it should see a horizontal 3 in a row win', function() {
+    it('should see a horizontal 3 in a row win', function() {
         const board = boardFactory();
         const row = 5
         const cols = [0, 1, 2];
