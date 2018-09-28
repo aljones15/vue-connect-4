@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id='grid'>
      <div class='row' v-bind:key='index' v-for='(row, index) in grid'>
          <Square
              v-bind:key='index'
@@ -35,10 +35,26 @@ export default {
       width: 100%;
       width: 12%; 
   }
+
+  #grid {
+      background-color: white;
+  }
+
   .row {
       display: flex;
       flex-direction: row;
       width: 100%;
       padding-bottom: 1px;
   }
+// https://stackoverflow.com/questions/13637106/what-are-the-best-width-ranges-for-media-queries
+
+  @media only screen 
+  and (min-device-width: 480px) 
+  and (max-device-width: 1080px) {
+      #grid {
+          margin-right: 5rem;
+          margin-left: 5rem;
+      }
+  }
+
 </style>

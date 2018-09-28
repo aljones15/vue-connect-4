@@ -1,4 +1,5 @@
 import { boardFactory } from './factories';
+import { setLegal } from '../ai/legal';
 
 /**
   * @namespace mutations
@@ -33,6 +34,7 @@ export const mutations = {
                     throw new Error('Invalid Move');
                 }
                 state.board[row][col].taken = color;
+                state.board = setLegal(state.board);
             },
             /**
               * @function thinking

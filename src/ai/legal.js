@@ -47,4 +47,19 @@ export function legalMoves(board) {
    })); 
 }
 
+/**
+  * @function setLegal
+  * @param {Array.<Tile[]>} board
+  * @return {Array.<Tile[]>} board
+  * @description returns a new board with legal set for each piece called by {@link VuexState.mutations.makeMove}
+  * @memberof AI.LegalMoves
+*/
+export function setLegal(board) {
+    const legal = legalMoves(board);
+    return board.map((row, rowIndex) => row.map((t, tileIndex) => {
+        t.legal = legal[rowIndex][tileIndex];
+        return t;
+    }));
+}
+
 export default legalMoves;
