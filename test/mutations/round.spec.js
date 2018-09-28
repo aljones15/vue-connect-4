@@ -35,7 +35,8 @@ describe('it should mutate a round', function() {
             round: 0,
             board,
             thinking: false,
-            winners: state.winners
+            winners: state.winners,
+            won: false,
         };
         expect(state, 'Expected State to reset but winners remain').to.deep.eql(resetState);
     });
