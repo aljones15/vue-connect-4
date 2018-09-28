@@ -4,7 +4,7 @@ import colors from '../../src/constants/colors';
 import { findGaps, onlyMyColor } from '../../src/ai/score';
 import { flatten } from '../../src/ai/utils';
 import { setLegal } from '../../src/ai/legal';
-import Tile from '../../src/models/Tiles';
+import { testConnection } from './helpers';
 
 const remove = true;
 const testColor = colors.red;
@@ -22,5 +22,6 @@ describe('findGaps', function() {
         const winners = findGaps(board, onlyRed, pieces);
         expect(winners).to.have.lengthOf(1);
         const expectedTiles = [board[row][3], board[row][4], board[row][5], board[row][6]];
+        testConnection(winners[0], expectedTiles, 4);
     });
 });
