@@ -17,13 +17,7 @@ export default class Tile {
         this._color = color;
         this._taken = false;
         this._legal = false;
-        this.resetScore();
-    }
-    resetScore() {
-        this.score = {
-            player1: 0,
-            player2: 0
-        }
+        this.winner = false;
     }
     get color() {
         return this._color;

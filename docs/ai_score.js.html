@@ -35,6 +35,18 @@
 */
 
 /**
+ * @function tileExists
+ * @param {Array.&lt;Tile[]>} board,
+ * @param {Direction} next
+ * @return {Boolean}
+ * @description returns if a tile exists in the board
+ * @memberof AI.Score
+*/
+export function tileExists(board, next) {
+    return board[next.row] &amp;&amp; board[next.row][next.col];
+}
+
+/**
  * @param {Tile} tile the target tile
  * @param {Array.&lt;Tile[]>} board the current board
  * @return {Tile[]} neighbors of the target tile
@@ -151,13 +163,13 @@ export function onlyMyColor(board, color, remove = false) {
   * @description returns if the AI can Win this turn
   * @memberof AI.Score
 */
-export function canWin(board, color) {
+export function canWin(board, color, _pieces) {
     // restrict the search space to just this color
     const remove = true;
     const thisColor = onlyMyColor(board, color);
     const availableColors = flatten(onlyMyColor(board, color, remove));
     // this will start at the bottom row 0 and go up
-    const pieces = flatten(availableColors.map(t => findConnections(t, thisColor)));
+    const pieces = _pieces || flatten(availableColors.map(t => findConnections(t, thisColor)));
     // win means that the final 4th tile is legal i.e. not taken and also can be placed on top of
     const isLegal = (direction) => {
         const [first, second, third] = direction;
@@ -165,10 +177,9 @@ export function canWin(board, color) {
         const { key: secondKey } = second;
         const currentDirection = getDirection(bossKey, secondKey);
         const next = nextDirection(currentDirection, third);
-        const tileExists = board[next.row] &amp;&amp; board[next.row][next.col];
-        const legalWin = tileExists ? board[next.row][next.col].legal : false;
-        if (legalWin) {
-            direction.push(board[next.row][next.col]);
+        const legalWin = tileExists(board, next);
+        if (legalWin &amp;&amp; legalWin.legal) {
+            direction.push(legalWin);
             return direction;
         }
         return false;
@@ -181,6 +192,10 @@ export function canWin(board, color) {
     return winners;
 }
 
+export function reduceToWinningTile(connections) {
+    return connections.map(connection => connection.find(t => !t.taken));
+}
+
 /**
  * @param {String} color
  * @param {Array.&lt;Tile[]>} board
@@ -190,22 +205,67 @@ export function canWin(board, color) {
  * @memberof AI.Score
 */
 export function blockThree(board, color) {
-    return canWin(board, color);
+    const pieces = flatten(onlyMyColor(board, color, true));
+    const colorTiles = onlyMyColor(board, color);
+    const inRow = reduceToWinningTile(canWin(board, color));
+    const gaps = reduceToWinningTile(findGapWins(board, colorTiles, pieces));
+    return inRow.concat(gaps);
 }
 
 /**
   * @param {Array.&lt;Tile[]>} board
-  * @param {Array.&lt;Boolean>} legal
-  * @param {colors} color
+  * @param {Array.&lt;Tile[]>} colorTiles supplied by {@link AI}
+  * @param {Tile[]} pieces supplied by {@link AI}
+  * @param {Number} length defaults to 3
   * @description finds places where pieces of the same color are seperated by a gap
   * and can be legally filled
   * @memberof AI.Score
   * @return {Tile[]}
 */
-export function findGaps(board, color) {
-    
+export function findGapWins(board, colorTiles, pieces) {
+    // this will start at the bottom row 0 and go up
+    const length = 2;
+    const directions = flatten(pieces.map(t => findConnections(t, colorTiles, length)));
+    const isWinner = (direction) => {
+        const [ first, second ] = direction;
+        const { key: bossKey } = first;
+        const { key: secondKey } = second;
+        const currentDirection = getDirection(bossKey, secondKey);
+        const next = nextDirection(currentDirection, second);
+        const gap = tileExists(board, next);
+        const validGap = gap &amp;&amp; gap.legal &amp;&amp; !gap.taken;
+        if (validGap) {
+            const possibleWinner = tileExists(board, nextDirection(currentDirection, gap));
+            const validWinner = possibleWinner &amp;&amp; possibleWinner.color === second.color;
+            if (validWinner) {
+                direction.push(gap, possibleWinner);
+                return direction;
+            }
+        }
+        return false;
+    };
+    const winners = [];
+    directions.forEach(direction => {
+        const winner = isWinner(direction);
+        if (winner) {
+            winners.push(winner);
+        }
+    });
+    return winners; 
 }
 
+export function gameOver(board, player) {
+     const remove = true;
+     const depth = 4;
+     const pieces = flatten(onlyMyColor(board, player.color, remove));
+     const searchSpace = onlyMyColor(board, player.color);
+     const connectFour = pieces.map(tile => findConnections(tile, searchSpace, depth));
+     const didWin = connectFour.some(cf => cf.length > 0);
+     if (didWin) {
+         connectFour.forEach(cf => cf.forEach(c => c.forEach(tile => tile.winner = true)));
+     }
+     return didWin;
+}
 </code></pre>
         </article>
     </section>
@@ -222,7 +282,7 @@ export function findGaps(board, color) {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Sep 28 2018 04:33:48 GMT+0000 (UTC)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Sep 28 2018 20:30:48 GMT+0800 (China Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

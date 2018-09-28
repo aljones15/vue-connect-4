@@ -6,7 +6,6 @@ import {
 } from '../ai/score';
 
 import {
-    last,
     flatten
 } from '../ai/utils';
 import colors from '../constants/colors';
@@ -42,7 +41,7 @@ export class AI {
         if (winners.length) return winners[0];
         const opponentColor = this.color === colors.red ? colors.blue : colors.red;
         const blockOpponentWin = blockThree(board, opponentColor);
-        if (blockOpponentWin.length) return last(blockOpponentWin[0]);
+        if (blockOpponentWin.length) return blockOpponentWin[0];
         const middleFirst = (a, b) => {
             const aMiddle = a.key.row === 4;
             const bMiddle = b.key.row === 4;

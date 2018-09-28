@@ -19,7 +19,8 @@
      </div>
      <div class="uk-width-1-5">
        <vk-icon icon="bolt" />
-       <span class='bump-right'>Wins {{winners.length}}</span>
+       <span class='bump-right'>Total</span>
+       <div>{{winners.length}}</div>
      </div>
      <div class="uk-width-1-5">
        <vk-icon icon="refresh" v-on:click="reset" />
@@ -72,7 +73,7 @@ export default {
         float: right;
     }
     .bump-right {
-        margin-left: 1rem;
+        margin-left: 0.5rem;
     }
     .glow {
         box-shadow: 0px 0px 0px 1px black;

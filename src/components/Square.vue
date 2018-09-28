@@ -1,7 +1,7 @@
 <template>
   <span v-on:click="move(tile)" class='square uk-flex uk-flex-center'>
     <div
-      :class="{[tile.color]: tile.color, highlight: highlight}"
+      :class="{[tile.color]: tile.color, highlight: highlight, winner: tile.winner}"
       class="circle middle fall-in"
     />
     <div
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex';
+import { mapActions, mapGetters, mapState, mapMutations } from 'vuex';
 
 export default {
   name: 'Square',
@@ -26,17 +26,21 @@ export default {
   },
   methods: {
       move(tile) {
+          if (this.won && !this.tile.winner) return null;
+          if (this.won && this.tile.winner) return this.reset();
           const move = this.currentPlayer.plotMove(tile, this.grid);
           if (move) {
               this.endRound({move, player: this.currentPlayer});
           }
       },
-      ...mapActions(['endRound'])
+      ...mapActions(['endRound']),
+      ...mapMutations(['reset'])
   },
   computed: {
       ...mapGetters(['currentPlayer']),
       ...mapState({
-          grid: state => state.board
+          grid: state => state.board,
+          won: state => state.won,
       }),
       highlight() {
           return !this.tile.taken && this.tile.legal;
@@ -71,6 +75,11 @@ export default {
   div.lens.highlight, div.lens.taken {
       z-index: 2;
       background-color: rgba(255,255,255,0);
+  }
+  
+  div.winner {
+      background-color: orange;
+      border-style: dashed;
   }
 
   .circle {
