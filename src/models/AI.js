@@ -1,6 +1,7 @@
 import {
     canWin,
     blockThree,
+    onlyMyColor
 } from '../ai/score';
 
 import {
@@ -20,6 +21,7 @@ export class AI {
         this.currentRound = null;
         this.nextRound = null;
         this.color = color;
+        this._pieces;
     }
     /**
      * @param {Array.<Tile[]>} board
@@ -28,6 +30,7 @@ export class AI {
      * @description this method determines a move for the ai
      */
     getMove(board, legal) {
+        this.pieces = board;
         const winners = canWin(board, legal, this.color);
         if (winners.length) return last(winners[0]);
         const opponentColor = this.color === colors.red ? colors.blue : colors.red;
@@ -49,6 +52,13 @@ export class AI {
             .filter(t => t)
             .sort(middleFirst);
         return possibleMoves[0];
+    }
+    get pieces() {
+        return this._pieces;
+    }
+    set pieces(board) {
+        const remove = true;
+        this._pieces = flatten(onlyMyColor(board, this.color, remove));
     }
 }
 

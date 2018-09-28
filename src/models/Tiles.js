@@ -16,6 +16,7 @@ export default class Tile {
         this.key = {row, col};
         this._color = color;
         this._taken = false;
+        this._legal = false;
         this.resetScore();
     }
     resetScore() {
@@ -35,6 +36,14 @@ export default class Tile {
     }
     set taken(color) {
         this._taken = true;
+        this._legal = false;
         this.color = color;
+    }
+    get legal() {
+        return this._legal;
+    }
+    // this is so we can set something to not legal if it has nothing under it
+    set legal(covered) {
+        this._legal = covered;
     }
 }

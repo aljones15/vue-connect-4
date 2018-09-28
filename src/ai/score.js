@@ -166,4 +166,19 @@ export function blockThree(board, legal, color) {
     return canWin(board, legal, color);
 }
 
+/**
+  * @param {Array.<Tile[]>} board
+  * @param {Array.<Boolean>} legal
+  * @param {colors} color
+  * @description finds places where pieces of the same color are seperated by a gap
+  * and can be legally filled
+  * @memberof AI.Score
+  * @return {Tile[]}
+*/
+/*
+export function findGaps(board, color) {
+    
+}
+*/
+
 
