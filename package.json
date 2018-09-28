@@ -8,10 +8,10 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test": "vue-cli-service test:unit -r mocha-steps 'test/**/*.spec.js'",
-    "docs": "jsdoc ./src/**/*.js -d ./docs"
+    "docs": "jsdoc ./src/**/*.js -d ./docs",
+    "heroku-prebuild": "yarn add global @vue/cli-service @vue/cli-plugin-babel @vue/cli-plugin-eslint"
   },
   "dependencies": {
-    "@vue/cli-service": "^3.0.4",
     "@vuikit/icons": "^0.8.1",
     "@vuikit/theme": "^0.8.1",
     "express": "^4.16.3",
@@ -23,8 +23,9 @@
     "vuikit": "^0.8.10"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.3",
     "@vue/cli-plugin-eslint": "^3.0.3",
+    "@vue/cli-plugin-babel": "^3.0.4",
+    "@vue/cli-service": "^3.0.4",
     "@vue/cli-plugin-unit-mocha": "^3.0.3",
     "@vue/test-utils": "^1.0.0-beta.25",
     "chai": "^4.1.2",

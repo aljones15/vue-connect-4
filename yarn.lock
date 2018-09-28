@@ -653,9 +653,9 @@
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.2.tgz#54c5a964462be3d4d78af631363c18d6fa91ac26"
 
-"@vue/babel-preset-app@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@vue/babel-preset-app/-/babel-preset-app-3.0.1.tgz#24188938e93f259f7141a6a1190da9c511d123d8"
+"@vue/babel-preset-app@^3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@vue/babel-preset-app/-/babel-preset-app-3.0.4.tgz#5702e18b118b0a91a8aa988be5eefcb8245c8b87"
   dependencies:
     "@babel/plugin-proposal-class-properties" "7.0.0-beta.47"
     "@babel/plugin-proposal-decorators" "7.0.0-beta.47"
@@ -672,12 +672,12 @@
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/@vue/cli-overlay/-/cli-overlay-3.0.4.tgz#6d5640021906d35e5572c186c3f35b4e7a93c247"
 
-"@vue/cli-plugin-babel@^3.0.3":
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-babel/-/cli-plugin-babel-3.0.3.tgz#967ef902553c1c6152ef6330cb05816a730dfdb5"
+"@vue/cli-plugin-babel@^3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-babel/-/cli-plugin-babel-3.0.4.tgz#f2e4a12f498e285fdc605ad29df4b9b0d4a0eb10"
   dependencies:
     "@babel/core" "7.0.0-beta.47"
-    "@vue/babel-preset-app" "^3.0.1"
+    "@vue/babel-preset-app" "^3.0.4"
     babel-loader "^8.0.0-0"
 
 "@vue/cli-plugin-eslint@^3.0.3":
@@ -1320,8 +1320,8 @@ babel-helper-vue-jsx-merge-props@^2.0.3:
   resolved "https://registry.yarnpkg.com/babel-helper-vue-jsx-merge-props/-/babel-helper-vue-jsx-merge-props-2.0.3.tgz#22aebd3b33902328e513293a8e4992b384f9f1b6"
 
 babel-loader@^8.0.0-0:
-  version "8.0.2"
-  resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-8.0.2.tgz#2079b8ec1628284a929241da3d90f5b3de2a5ae5"
+  version "8.0.4"
+  resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-8.0.4.tgz#7bbf20cbe4560629e2e41534147692d3fecbdce6"
   dependencies:
     find-cache-dir "^1.0.0"
     loader-utils "^1.0.2"
