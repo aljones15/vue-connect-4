@@ -186,8 +186,9 @@ export function blockThree(board, color) {
   * @memberof AI.Score
   * @return {Tile[]}
 */
-export function findGaps(board, colorTiles, pieces, length = 2) {
+export function findGapWins(board, colorTiles, pieces) {
     // this will start at the bottom row 0 and go up
+    const length = 2;
     const directions = flatten(pieces.map(t => findConnections(t, colorTiles, length)));
     const isWinner = (direction) => {
         const [ first, second ] = direction;
