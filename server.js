@@ -5,7 +5,7 @@ const app = express()
     app.use('/', express.static(path.join(__dirname, 'dist')));
 
         app.listen(port, () => {
-            console.log('connect 4 is listening'); // eslint-disable-line no-console
+            console.log('connect 4 is listening on ' + port); // eslint-disable-line no-console
         });
 
 
