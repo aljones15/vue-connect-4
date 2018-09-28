@@ -1,3 +1,4 @@
+![connect 4](https://github.com/aljones15/vue-connect-4/raw/development/connect4.png)
 # Vue.JS Connect 4
 A simple implementation of Connect 4
 Features:
