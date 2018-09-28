@@ -3,7 +3,6 @@ import { boardFactory } from '../../src/state/factories';
 import colors from '../../src/constants/colors';
 import { findConnections } from '../../src/ai/score';
 import { randomStart } from '../../src/ai/utils';
-import Tile from '../../src/models/Tiles';
 import { testConnection } from './helpers';
 
 describe('findConnections', function() {
