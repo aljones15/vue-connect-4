@@ -1,6 +1,6 @@
 <template>
   <span v-on:click="move(tile)" class='square uk-flex uk-flex-center'>
-    <div :class="tile.color" class="circle" />
+    <div :class="{[tile.color]: tile.color, highlight: highlight}" class="circle" />
   </span>
 </template>
 
@@ -26,7 +26,10 @@ export default {
       ...mapGetters(['currentPlayer']),
       ...mapState({
           grid: state => state.board
-      })
+      }),
+      highlight() {
+          return !this.tile.taken && this.tile.legal;
+      }
   },
 }
 </script>
@@ -47,7 +50,7 @@ export default {
       border-radius: 100%;
   }
   .white {
-      background-color: white;
+      background-color: #fbeeee;
   }
   .red {
       background-color: red;
@@ -58,6 +61,9 @@ export default {
   .blue {
       background-color: blue;
       animation-name: slideInDown;
+  }
+  div.highlight {
+      background-color: white;
   }
 
   @keyframes slideInDown {

@@ -118,19 +118,18 @@ export function onlyMyColor(board, color, remove = false) {
 
 /**
   * @param {Array.<Tile[]>} board
-  * @param {Array<Boolean>} legal
   * @param {colors} color
   * @return {Tile[]} winners winning tiles AI can legally move to
   * @description returns if the AI can Win this turn
   * @memberof AI.Score
 */
-export function canWin(board, legal, color) {
+export function canWin(board, color, _pieces) {
     // restrict the search space to just this color
     const remove = true;
     const thisColor = onlyMyColor(board, color);
     const availableColors = flatten(onlyMyColor(board, color, remove));
     // this will start at the bottom row 0 and go up
-    const pieces = flatten(availableColors.map(t => findConnections(t, thisColor)));
+    const pieces = _pieces || flatten(availableColors.map(t => findConnections(t, thisColor)));
     // win means that the final 4th tile is legal i.e. not taken and also can be placed on top of
     const isLegal = (direction) => {
         const [first, second, third] = direction;
@@ -138,7 +137,8 @@ export function canWin(board, legal, color) {
         const { key: secondKey } = second;
         const currentDirection = getDirection(bossKey, secondKey);
         const next = nextDirection(currentDirection, third);
-        const legalWin = legal[next.row] ? legal[next.row][next.col] : false;
+        const tileExists = board[next.row] && board[next.row][next.col];
+        const legalWin = tileExists ? board[next.row][next.col].legal : false;
         if (legalWin) {
             direction.push(board[next.row][next.col]);
             return direction;
@@ -156,14 +156,13 @@ export function canWin(board, legal, color) {
 /**
  * @param {String} color
  * @param {Array.<Tile[]>} board
- * @param {Array.<Tile[]>} acc
  * @param {colors} color
  * @return {Tile[]} an array of moves
  * that would block a win for a color
  * @memberof AI.Score
 */
-export function blockThree(board, legal, color) {
-    return canWin(board, legal, color);
+export function blockThree(board, color) {
+    return canWin(board, color);
 }
 
 /**
@@ -175,10 +174,12 @@ export function blockThree(board, legal, color) {
   * @memberof AI.Score
   * @return {Tile[]}
 */
-/*
-export function findGaps(board, color) {
-    
+export function findGaps(board, color, _pieces) {
+    const remove = true;
+    const thisColor = onlyMyColor(board, color);
+    const availableColors = flatten(onlyMyColor(board, color, remove));
+    // this will start at the bottom row 0 and go up
+    const pieces = _pieces || flatten(availableColors.map(t => findConnections(t, thisColor, 2)));
+    return pieces; 
 }
-*/
-
 

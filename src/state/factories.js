@@ -1,6 +1,6 @@
 import range from 'lodash/range';
 import Tile from '../models/Tiles';
-import legalMoves from '../ai/legal';
+import { setLegal } from '../ai/legal';
 
 /**
   @namespace factories
@@ -19,9 +19,5 @@ export function boardFactory() {
     const board = range(6)
         .map((row) => range(7)
             .map((col) => new Tile(row, col)));
-    const legal = legalMoves(board);
-    return board.map((row, rowIndex) => row.map((t, tileIndex) => {
-        t.legal = legal[rowIndex][tileIndex];
-        return t;
-    }));
+    return setLegal(board);
 }
