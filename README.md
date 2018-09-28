@@ -2,8 +2,8 @@
 
 A simple implementation of Connect 4
 Features:
-- [ ] player versus player
-- [ ] player vs ai
+- [X] player versus player
+- [X] player vs ai
 
 ## Project setup
 ```
