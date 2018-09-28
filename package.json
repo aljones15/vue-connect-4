@@ -10,7 +10,7 @@
     "test": "vue-cli-service test:unit -r mocha-steps 'test/**/*.spec.js'",
     "docs": "jsdoc ./src/**/*.js -d ./docs",
     "heroku-prebuild": "yarn add global @babel/core webpack @vue/cli-service @vue/cli-plugin-babel @vue/cli-plugin-eslint babel-loader",
-    "heroku-postbuild": "yarn build"
+    "heroku-postbuild": "yarn build && cp dist public"
   },
   "dependencies": {
     "@vuikit/icons": "^0.8.1",
