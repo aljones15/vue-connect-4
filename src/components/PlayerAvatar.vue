@@ -1,14 +1,18 @@
 <template>
-    <vk-icon v-bind:class="{ active: isActive }" class='spacey' icon="user" v-if="human" />
+    <span v-bind:class="{ active: isActive }" class='spacey' v-if="human" >
+      <vk-icon icon="user" />
+      <span>{{wins}}</span>
+    </span>
     <span v-bind:class="{ active: isActive}" class='spacey' v-else> 
       <RobotIcon />
+      <span>{{wins}}</span>
     </span>
 </template>
 
 <script>
 import RobotIcon from './RobotIcon.vue';
 import playerTypes from '../constants/playerTypes';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState} from 'vuex';
 
 export default {
   name: 'PlayerAvatar',
@@ -22,7 +26,11 @@ export default {
           const active = this.player.color === this.currentPlayer.color;
           return active;
       },
+      wins() {
+          return this.winners.filter(p => p.color === this.player.color).length;
+      },
       ...mapGetters(['currentPlayer']),
+      ...mapState(['winners']),
   },
   components: {
       RobotIcon
