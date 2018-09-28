@@ -1,4 +1,4 @@
-![alt travis cli](https://travis-ci.org/aljones15/vue-connect-4.svg?branch=master)
+[![Build Status](https://travis-ci.org/aljones15/vue-connect-4.svg?branch=master)](https://travis-ci.org/aljones15/vue-connect-4)
 ---
 ![connect 4](https://github.com/aljones15/vue-connect-4/raw/development/connect4.png)
 ---
