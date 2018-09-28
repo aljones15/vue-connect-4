@@ -1,14 +1,19 @@
 import { gameOver } from '../ai/score';
+import playerTypes from '../constants/playerTypes';
 
 export const actions = {
-    endRound({ commit, state },{move, player}) {
+    endRound({ commit, state, getters, dispatch },{move, player}) {
         commit('makeMove', move);
         const won = gameOver(state.board, player);
         if (won) {
             commit('declareWinnner', player);
             return commit('reset');
         }
-        return commit('incrementRound');
+        commit('incrementRound');
+        if (getters.currentPlayer.type === playerTypes.AI) {
+            const aimove = getters.currentPlayer.plotMove(null, state.board);
+            dispatch('endRound', {move: aimove, player: getters.currentPlayer}); 
+        }
     }
 };
 

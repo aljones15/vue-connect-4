@@ -35,6 +35,11 @@ export default {
       width: 100%;
       width: 12%; 
   }
+
+  #grid {
+      background-color: white;
+  }
+
   .row {
       display: flex;
       flex-direction: row;
