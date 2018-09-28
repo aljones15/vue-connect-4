@@ -1,7 +1,8 @@
 import {
     canWin,
     blockThree,
-    onlyMyColor
+    onlyMyColor,
+    findGapWins,
 } from '../ai/score';
 
 import {
@@ -21,7 +22,8 @@ export class AI {
         this.currentRound = null;
         this.nextRound = null;
         this.color = color;
-        this._pieces;
+        this._pieces = [];
+        this._mycolor = [];
     }
     /**
      * @param {Array.<Tile[]>} board
@@ -31,10 +33,16 @@ export class AI {
      */
     getMove(board, legal) {
         this.pieces = board;
-        const winners = canWin(board, legal, this.color);
-        if (winners.length) return last(winners[0]);
+        this.myColor = board;
+        const threeRow = canWin(board, this.color)
+            .map(connection => connection.find(t => !t.taken));
+        const gapWin = findGapWins(board, this.myColor, this.pieces)
+            .map(connection => connection.find(t => !t.taken));
+        const winners = threeRow.concat(gapWin).filter(win => win);
+        if (winners.length) return winners[0];
         const opponentColor = this.color === colors.red ? colors.blue : colors.red;
-        const blockOpponentWin = blockThree(board, legal, opponentColor);
+        const blockOpponentWin = blockThree(board, opponentColor);
+        if (blockOpponentWin.length) return last(blockOpponentWin[0]);
         const middleFirst = (a, b) => {
             const aMiddle = a.key.row === 4;
             const bMiddle = b.key.row === 4;
@@ -42,7 +50,6 @@ export class AI {
             if (bMiddle) return 1;
             return -1;
         };
-        if (blockOpponentWin.length) return last(blockOpponentWin[0]);
         const possibleMoves = flatten(legal
             .map((row, rowIndex) => {
                 return row.map((allowed, colIndex) => {
@@ -59,6 +66,12 @@ export class AI {
     set pieces(board) {
         const remove = true;
         this._pieces = flatten(onlyMyColor(board, this.color, remove));
+    }
+    get myColor() {
+        return this._mycolor;
+    }
+    set myColor(board) {
+        this._mycolor = onlyMyColor(board, this.color);
     }
 }
 

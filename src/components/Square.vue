@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters, mapState } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 
 export default {
   name: 'Square',
@@ -16,11 +16,10 @@ export default {
       move(tile) {
           const move = this.currentPlayer.plotMove(tile, this.grid);
           if (move) {
-              this.makeMove(move);
-              this.incrementRound();
+              this.endRound({move, player: this.currentPlayer});
           }
       },
-      ...mapMutations(['makeMove', 'incrementRound'])
+      ...mapActions(['endRound'])
   },
   computed: {
       ...mapGetters(['currentPlayer']),

@@ -218,3 +218,12 @@ export function findGapWins(board, colorTiles, pieces) {
     return winners; 
 }
 
+export function gameOver(board, player) {
+     const remove = true;
+     const depth = 4;
+     const pieces = flatten(onlyMyColor(board, player.color, remove));
+     const searchSpace = onlyMyColor(board, player.color);
+     const connectFour = pieces.map(tile => findConnections(tile, searchSpace, depth).length > 0);
+     const didWin = connectFour.some(cf => cf === true);
+     return didWin;
+}
