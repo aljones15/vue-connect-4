@@ -21,5 +21,6 @@ describe('findGaps', function() {
         const onlyRed = onlyMyColor(board, testColor);
         const winners = findGaps(board, onlyRed, pieces);
         expect(winners).to.have.lengthOf(1);
+        const expectedTiles = [board[row][3], board[row][4], board[row][5], board[row][6]];
     });
 });
