@@ -7,6 +7,18 @@ import { flatten, last } from './utils';
 */
 
 /**
+ * @function tileExists
+ * @param {Array.<Tile[]>} board,
+ * @param {Direction} next
+ * @return {Boolean}
+ * @description returns if a tile exists in the board
+ * @memberof AI.Score
+*/
+export function tileExists(board, next) {
+    return board[next.row] && board[next.row][next.col];
+}
+
+/**
  * @param {Tile} tile the target tile
  * @param {Array.<Tile[]>} board the current board
  * @return {Tile[]} neighbors of the target tile
@@ -137,10 +149,9 @@ export function canWin(board, color, _pieces) {
         const { key: secondKey } = second;
         const currentDirection = getDirection(bossKey, secondKey);
         const next = nextDirection(currentDirection, third);
-        const tileExists = board[next.row] && board[next.row][next.col];
-        const legalWin = tileExists ? board[next.row][next.col].legal : false;
-        if (legalWin) {
-            direction.push(board[next.row][next.col]);
+        const legalWin = tileExists(board, next);
+        if (legalWin && legalWin.legal) {
+            direction.push(legalWin);
             return direction;
         }
         return false;
@@ -167,19 +178,42 @@ export function blockThree(board, color) {
 
 /**
   * @param {Array.<Tile[]>} board
-  * @param {Array.<Boolean>} legal
-  * @param {colors} color
+  * @param {Array.<Tile[]>} colorTiles supplied by {@link AI}
+  * @param {Tile[]} pieces supplied by {@link AI}
+  * @param {Number} length defaults to 3
   * @description finds places where pieces of the same color are seperated by a gap
   * and can be legally filled
   * @memberof AI.Score
   * @return {Tile[]}
 */
-export function findGaps(board, color, _pieces) {
-    const remove = true;
-    const thisColor = onlyMyColor(board, color);
-    const availableColors = flatten(onlyMyColor(board, color, remove));
+export function findGaps(board, colorTiles, pieces, length = 2) {
     // this will start at the bottom row 0 and go up
-    const pieces = _pieces || flatten(availableColors.map(t => findConnections(t, thisColor, 2)));
-    return pieces; 
+    const directions = flatten(pieces.map(t => findConnections(t, colorTiles, length)));
+    const isWinner = (direction) => {
+        const [ first, second ] = direction;
+        const { key: bossKey } = first;
+        const { key: secondKey } = second;
+        const currentDirection = getDirection(bossKey, secondKey);
+        const next = nextDirection(currentDirection, second);
+        const gap = tileExists(board, next);
+        const validGap = gap && gap.legal && !gap.taken;
+        if (validGap) {
+            const possibleWinner = tileExists(board, nextDirection(currentDirection, gap));
+            const validWinner = possibleWinner && possibleWinner.color === second.color;
+            if (validWinner) {
+                direction.push(gap, possibleWinner);
+                return direction;
+            }
+        }
+        return false;
+    };
+    const winners = [];
+    directions.forEach(direction => {
+        const winner = isWinner(direction);
+        if (winner) {
+            winners.push(winner);
+        }
+    });
+    return winners; 
 }
 
