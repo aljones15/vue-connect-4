@@ -46,6 +46,7 @@ export const state = {
               *  @description starts out with a blank board all white
               *   contains an Array of Arrays of {@link Tile}
             */
+            won: false,
             board: boardFactory(),
             /** 
                 @type {Boolean}

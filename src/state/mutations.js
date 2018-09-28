@@ -68,6 +68,7 @@ export const mutations = {
               * @return {Object}
             */
             declareWinnner(state, winner) {
+                state.won = true;
                 state.winners.push(winner);
             },
             /**
@@ -83,6 +84,7 @@ export const mutations = {
                 state.board = boardFactory();
                 state.thinking = false;
                 state.currentPlayer = false;
+                state.won = false;
             }
 };
 export default mutations;

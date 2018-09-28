@@ -164,6 +164,10 @@ export function canWin(board, color, _pieces) {
     return winners;
 }
 
+export function reduceToWinningTile(connections) {
+    return connections.map(connection => connection.find(t => !t.taken));
+}
+
 /**
  * @param {String} color
  * @param {Array.<Tile[]>} board
@@ -173,7 +177,11 @@ export function canWin(board, color, _pieces) {
  * @memberof AI.Score
 */
 export function blockThree(board, color) {
-    return canWin(board, color);
+    const pieces = flatten(onlyMyColor(board, color, true));
+    const colorTiles = onlyMyColor(board, color);
+    const inRow = reduceToWinningTile(canWin(board, color));
+    const gaps = reduceToWinningTile(findGapWins(board, colorTiles, pieces));
+    return inRow.concat(gaps);
 }
 
 /**
@@ -223,7 +231,10 @@ export function gameOver(board, player) {
      const depth = 4;
      const pieces = flatten(onlyMyColor(board, player.color, remove));
      const searchSpace = onlyMyColor(board, player.color);
-     const connectFour = pieces.map(tile => findConnections(tile, searchSpace, depth).length > 0);
-     const didWin = connectFour.some(cf => cf === true);
+     const connectFour = pieces.map(tile => findConnections(tile, searchSpace, depth));
+     const didWin = connectFour.some(cf => cf.length > 0);
+     if (didWin) {
+         connectFour.forEach(cf => cf.forEach(c => c.forEach(tile => tile.winner = true)));
+     }
      return didWin;
 }
