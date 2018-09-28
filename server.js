@@ -3,7 +3,7 @@ const path = require('path');
 const port = process.env.PORT || 3080;
 const app = express()
 
-  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.static(path.join(__dirname, 'public', 'dist')));
 
   app.listen(port, () => {
      console.log('connect 4 is listening on ' + port); // eslint-disable-line no-console
