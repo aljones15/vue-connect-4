@@ -44,22 +44,12 @@ export default {
 // https://stackoverflow.com/questions/13637106/what-are-the-best-width-ranges-for-media-queries
 
   @media only screen 
-  and (min-device-width: 0px) 
-  and (max-device-width: 480px) {
-      
-  }
-  @media only screen 
   and (min-device-width: 480px) 
   and (max-device-width: 1080px) {
       #grid {
           margin-right: 5rem;
           margin-left: 5rem;
       }
-  }
-
-  @media only screen
-  and (min-width: 1824px) {
-
   }
 
 </style>
