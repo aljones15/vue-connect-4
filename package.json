@@ -9,7 +9,7 @@
     "lint": "vue-cli-service lint",
     "test": "vue-cli-service test:unit -r mocha-steps 'test/**/*.spec.js'",
     "docs": "jsdoc ./src/**/*.js -d ./docs",
-    "heroku-prebuild": "yarn add global @babel/core webpack @vue/cli-service @vue/cli-plugin-babel @vue/cli-plugin-eslint",
+    "heroku-prebuild": "yarn add global @babel/core webpack @vue/cli-service @vue/cli-plugin-babel @vue/cli-plugin-eslint babel-loader",
     "heroku-postbuild": "yarn build"
   },
   "dependencies": {
