@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "yarn build && node server.js",
+    "start": "ls && ls public && node server.js",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build && mv dist public",
     "lint": "vue-cli-service lint",
