@@ -43,11 +43,13 @@ export default {
     min-height: 25px;
     min-width: 25px;
   }
+
   .circle {
-      width: 5vmax;
-      height: 5vmax;
+      width: 8vmax;
+      height: 8vmax;
       border-radius: 100%;
   }
+
   .white {
       background-color: #fbeeee;
   }
@@ -81,4 +83,7 @@ export default {
 .slideInDown {
   animation-name: slideInDown;
 }
+
+
+
 </style>

@@ -80,4 +80,25 @@ export default {
     span {
         vertical-align: bottom;
     }
+  @media only screen 
+  and (min-device-width: 0px) 
+  and (max-device-width: 480px) {
+        .uk-width-1-5 > span {
+            display: block;
+            width: 100%;
+            margin-left: 0px;
+            box-shadow: 0px 0px 0px 0px black;
+        }
+  }
+
+  @media only screen 
+  and (min-device-width: 480px) 
+  and (max-device-width: 800px) {
+        .uk-width-1-5 > span {
+            display: block;
+            width: 100%;
+            margin-left: 0px;
+        }
+  }
+
 </style>
