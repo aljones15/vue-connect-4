@@ -12,7 +12,7 @@ export const actions = {
         commit('incrementRound');
         if (getters.currentPlayer.type === playerTypes.AI) {
             const aimove = getters.currentPlayer.plotMove(null, state.board);
-            dispatch('endRound', {move: aimove, player: getters.currentPlayer}); 
+            setTimeout(dispatch, 720,'endRound', {move: aimove, player: getters.currentPlayer}); 
         }
     }
 };
