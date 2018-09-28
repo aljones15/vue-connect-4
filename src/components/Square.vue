@@ -44,18 +44,20 @@ export default {
     min-width: 25px;
   }
   .circle {
-      width: 12vmax;
-      height: 12vmax;
+      width: 5vmax;
+      height: 5vmax;
       border-radius: 100%;
   }
   .white {
       background-color: #fbeeee;
   }
-  .red {
-      background-color: red;
+  .red, .blue {
       animation-name: slideInDown;
       animation-duration: 1s;
       animation-fill-mode: both;
+  }
+  .red {
+      background-color: red;
   }
   .blue {
       background-color: blue;
@@ -67,7 +69,7 @@ export default {
 
   @keyframes slideInDown {
     from {
-      transform: translate3d(0, -100%, 0);
+      transform: translate3d(0, -100vmax, 0);
       visibility: visible;
     }
 

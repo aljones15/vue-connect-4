@@ -19,7 +19,7 @@
      </div>
      <div class="uk-width-1-5">
        <vk-icon icon="bolt" />
-       <span class='bump-right'>Wins</span>
+       <span class='bump-right'>Wins {{winners.length}}</span>
      </div>
      <div class="uk-width-1-5">
        <vk-icon icon="refresh" v-on:click="reset" />
@@ -39,6 +39,7 @@ export default {
       ...mapState({
           round: state => state.round,
           players: state => state.players,
+          winners: state => state.winners,
       }),
   },
   methods: {
